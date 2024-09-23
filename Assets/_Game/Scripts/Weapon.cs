@@ -21,9 +21,10 @@ public class Weapon : MonoBehaviour
         bulletSpawnPos = spawnPos;
     }
 
-    public void Fire()
+    public void FireOnScale(float scale)
     {
-        Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation);
+        Bullet bullet_ = Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation);
+        bullet_.transform.localScale = Vector3.one * scale;
     }
 
 

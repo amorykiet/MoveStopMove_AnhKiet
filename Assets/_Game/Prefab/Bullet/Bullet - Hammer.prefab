@@ -99,6 +99,7 @@ MonoBehaviour:
   rotSpeed: 400
   rb: {fileID: 3078668823159099075}
   model: {fileID: 7184493283119577647}
+  timeToExit: 2
   owner: {fileID: 0}
 --- !u!1001 &7184493283119479951
 PrefabInstance:

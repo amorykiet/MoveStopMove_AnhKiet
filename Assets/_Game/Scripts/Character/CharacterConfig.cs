@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CharacterConfig", order = 1)]
 public class CharacterConfig : ScriptableObject
 {
-    public float radiusAttackStart = 5;
-
+    public float radiusAttackStart;
+    public float modelScaleStart;
 
 }

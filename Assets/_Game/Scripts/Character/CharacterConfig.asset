@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   radiusAttackStart: 5
+  modelScaleStart: 1

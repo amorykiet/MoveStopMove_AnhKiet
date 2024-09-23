@@ -57,9 +57,6 @@ public class SphereAttackRange : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         RemoveCharacter(other);
-        RemoveBullet(other);
-        
-
     }
 
 }

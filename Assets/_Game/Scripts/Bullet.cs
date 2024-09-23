@@ -9,12 +9,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float rotSpeed = 100;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject model;
+    [SerializeField] private float timeToExit = 2.0f;
 
 
     public Character owner;
     private void Start()
     {
         rb.velocity = transform.forward * speed;
+        Invoke(nameof(OnDespawn), timeToExit);
     }
 
     private void FixedUpdate()

@@ -14,11 +14,13 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected GameObject model;
 
     protected Transform tf;
     protected Weapon currentWeapon;
     protected List<Character> charactersInRange = new();
     protected float radiusAttack;
+    protected float modelScale;
 
 
     public Transform TF
@@ -61,8 +63,12 @@ public abstract class Character : MonoBehaviour
         if (radiusAttack < 10.0f)
         {
             radiusAttack = radiusAttack + 0.5f;
+            modelScale = modelScale + 0.1f;
         }
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
+        model.transform.localScale = Vector3.one * modelScale;
+
+
     }
 
     public virtual void OnDead()
@@ -81,5 +87,9 @@ public abstract class Character : MonoBehaviour
     public virtual void OnInit()
     {
         radiusAttack = config.radiusAttackStart;
+        modelScale = config.modelScaleStart;
+        attackSphere.transform.localScale = Vector3.one * radiusAttack;
+        model.transform.localScale = Vector3.one * modelScale;
+
     }
 }

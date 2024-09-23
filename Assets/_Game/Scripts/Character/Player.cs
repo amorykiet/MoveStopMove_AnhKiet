@@ -22,6 +22,7 @@ public class Player : Character
     private bool stoped = false;
     private bool attacking = false;
     private bool readyToAttack = false;
+    private Bot currentTarget;
 
     //TEST HERE
     private void Start()
@@ -32,7 +33,23 @@ public class Player : Character
     private void Update()
     {
         ChangeDragOnGround();
+        if (charactersInRange.Count > 0)
+        {
+            Bot lastTarget = GetNewTarget();
 
+            if (currentTarget != lastTarget)
+            {
+                ChangeTargetTo(lastTarget);
+            }
+
+        }
+        else
+        {
+            if (currentTarget != null)
+            {
+                ChangeTargetTo(null);
+            }
+        }
         if (Input.GetMouseButtonUp(0))
         {
             OnMouseButtonUp();
@@ -42,6 +59,10 @@ public class Player : Character
         {
             OnMouseButtonDown();
         }
+
+
+
+        
     }
 
     private void FixedUpdate()
@@ -51,6 +72,32 @@ public class Player : Character
         {
             Move();
         }
+
+    }
+
+    private Bot GetNewTarget()
+    {
+        Bot target = charactersInRange.OrderBy(o => Vector3.Distance(TF.position, o.TF.position)).First() as Bot;
+        return target;
+    }
+
+    private void ChangeTargetTo(Bot lastTarget)
+    {
+        if(lastTarget == null)
+        {
+            currentTarget?.IsTargeted(false);
+            currentTarget = null;
+            return;
+
+        }
+
+        if(currentTarget != null)
+        {
+            currentTarget.IsTargeted(false);
+        }
+
+        currentTarget = lastTarget;
+        currentTarget.IsTargeted(true);
     }
 
     private void ChangeDragOnGround()
@@ -72,9 +119,10 @@ public class Player : Character
     {
         readyToAttack = true;
         stoped = true;
-        if (charactersInRange.Count > 0)
+        rb.velocity = Vector3.zero;
+        if (currentTarget != null)
         {
-            PreAttack();
+            PreAttack(currentTarget);
         }
         else
         {
@@ -106,11 +154,11 @@ public class Player : Character
         return false;
     }
 
-    private void PreAttack()
+    private void PreAttack(Bot target)
     {
-        Character target = charactersInRange.OrderBy(o => Vector3.Distance(TF.position, o.TF.position)).First();
         transform.forward = target.TF.position - transform.position;
         animator.SetBool(Constants.IS_ATTACK, true);
+        animator.SetBool(Constants.IS_IDLE, true);
         Invoke(nameof(Attack), 0.2f);
     }
 
@@ -119,7 +167,7 @@ public class Player : Character
         if (!readyToAttack) { return;}
         if (attacking) { return; }
         attacking = true;
-        currentWeapon.Fire();
+        currentWeapon.FireOnScale(modelScale);
         currentWeapon.Hide();
         Invoke(nameof(ResetAttack), 0.65f);
 
@@ -132,7 +180,6 @@ public class Player : Character
         stoped = false;
         attacking = false;
     }
-
 
     private void Move()
     {
@@ -161,33 +208,6 @@ public class Player : Character
 
         TF.rotation = Quaternion.Euler(0, eulerDirection, 0);
 
-    }
-
-    override public void AddCharacterInRange(Character chr)
-    {
-        base.AddCharacterInRange(chr);
-        if (chr is Bot)
-        {
-            Bot bot = chr as Bot;
-            bot.IsTargeted(true);
-
-            //Try To attack if ready and not attack yet
-            if (readyToAttack && !attacking)
-            {
-                PreAttack();
-            }
-        }
-
-    }
-
-    override public void RemoveCharacterOutRange(Character chr)
-    {
-        base.RemoveCharacterOutRange(chr); 
-        if (chr is Bot)
-        {
-            Bot bot = chr as Bot;
-            bot.IsTargeted(false);
-        }
     }
 
     override public void OnInit()
