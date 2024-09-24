@@ -92,4 +92,5 @@ public abstract class Character : MonoBehaviour
         model.transform.localScale = Vector3.one * modelScale;
 
     }
+
 }

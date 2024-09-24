@@ -7,7 +7,7 @@ public class Bot : Character
     [SerializeField] private GameObject targetCircle;
 
 
-    public void IsTargeted(bool targeted)
+    public void SetCircleTarget(bool targeted)
     {
         targetCircle.SetActive(targeted);
     }

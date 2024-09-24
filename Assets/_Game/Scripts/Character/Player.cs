@@ -33,23 +33,9 @@ public class Player : Character
     private void Update()
     {
         ChangeDragOnGround();
-        if (charactersInRange.Count > 0)
-        {
-            Bot lastTarget = GetNewTarget();
+        
+        UpdateTarget();
 
-            if (currentTarget != lastTarget)
-            {
-                ChangeTargetTo(lastTarget);
-            }
-
-        }
-        else
-        {
-            if (currentTarget != null)
-            {
-                ChangeTargetTo(null);
-            }
-        }
         if (Input.GetMouseButtonUp(0))
         {
             OnMouseButtonUp();
@@ -75,29 +61,46 @@ public class Player : Character
 
     }
 
-    private Bot GetNewTarget()
+    private void UpdateTarget()
+    {
+        if (charactersInRange.Count > 0)
+        {
+            Bot lastTarget = GetLatestTarget();
+
+            if (currentTarget != lastTarget)
+            {
+                ChangeTarget(lastTarget);
+            }
+
+        }
+        else
+        {
+            if (currentTarget != null)
+            {
+                ChangeTarget(null);
+            }
+        }
+    }
+
+    private Bot GetLatestTarget()
     {
         Bot target = charactersInRange.OrderBy(o => Vector3.Distance(TF.position, o.TF.position)).First() as Bot;
         return target;
     }
 
-    private void ChangeTargetTo(Bot lastTarget)
+    private void ChangeTarget(Bot lastTarget)
     {
-        if(lastTarget == null)
+        if (currentTarget != null)
         {
-            currentTarget?.IsTargeted(false);
-            currentTarget = null;
-            return;
-
-        }
-
-        if(currentTarget != null)
-        {
-            currentTarget.IsTargeted(false);
+            currentTarget.SetCircleTarget(false);
         }
 
         currentTarget = lastTarget;
-        currentTarget.IsTargeted(true);
+
+        if (currentTarget != null)
+        {
+            currentTarget.SetCircleTarget(true);
+        }
     }
 
     private void ChangeDragOnGround()
@@ -120,6 +123,7 @@ public class Player : Character
         readyToAttack = true;
         stoped = true;
         rb.velocity = Vector3.zero;
+
         if (currentTarget != null)
         {
             PreAttack(currentTarget);
