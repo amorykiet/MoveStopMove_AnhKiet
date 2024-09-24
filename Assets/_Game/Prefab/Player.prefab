@@ -175,8 +175,9 @@ MonoBehaviour:
   weaponPref: {fileID: 3368030114676347159, guid: 23e41c6799a79e344b46e3b9941629ab, type: 3}
   bulletSpawnPos: {fileID: 8790592440093902839}
   attackSphere: {fileID: 503161857641717668}
-  animator: {fileID: 5263793968775857504}
   model: {fileID: 1287355082869365257}
+  charactersInRange: []
+  animator: {fileID: 5263793968775857504}
   joyStick: {fileID: 0}
   groundMask:
     serializedVersion: 2
@@ -341,7 +342,7 @@ Transform:
   m_GameObject: {fileID: 8733136397931764346}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.058123916, y: 1.2707933, z: 1.24}
+  m_LocalPosition: {x: 0, y: 1, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

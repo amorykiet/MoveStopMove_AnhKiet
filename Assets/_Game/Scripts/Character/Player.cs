@@ -65,7 +65,7 @@ public class Player : Character
     {
         if (charactersInRange.Count > 0)
         {
-            Bot lastTarget = GetLatestTarget();
+            Bot lastTarget = GetLatestTarget() as Bot;
 
             if (currentTarget != lastTarget)
             {
@@ -80,12 +80,6 @@ public class Player : Character
                 ChangeTarget(null);
             }
         }
-    }
-
-    private Bot GetLatestTarget()
-    {
-        Bot target = charactersInRange.OrderBy(o => Vector3.Distance(TF.position, o.TF.position)).First() as Bot;
-        return target;
     }
 
     private void ChangeTarget(Bot lastTarget)
@@ -214,9 +208,16 @@ public class Player : Character
 
     }
 
+    public override void OnDead()
+    {
+        base.OnDead();
+        stoped = true;
+    }
+
     override public void OnInit()
     {
         base.OnInit();
         SetupWeapon();
     }
+
 }

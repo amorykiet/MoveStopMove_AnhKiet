@@ -13,7 +13,6 @@ public class Weapon : MonoBehaviour
     public void SetOwner(Character owner)
     {
         this.owner = owner;
-        bullet.SetOwner(owner);
     }
 
     public void SetBulletSpawnPos(Transform spawnPos)
@@ -25,6 +24,7 @@ public class Weapon : MonoBehaviour
     {
         Bullet bullet_ = Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation);
         bullet_.transform.localScale = Vector3.one * scale;
+        bullet_.SetOwner(owner);
     }
 
 

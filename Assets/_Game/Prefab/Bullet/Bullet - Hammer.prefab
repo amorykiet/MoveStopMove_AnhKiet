@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8031208903463141542}
   - component: {fileID: 3078668823159099075}
   - component: {fileID: 7576043640696003063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet - Hammer
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -112,6 +112,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_Name
       value: Hammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90389cac50942cb4ca38583e6531094a, type: 3}
       propertyPath: m_LocalScale.x
