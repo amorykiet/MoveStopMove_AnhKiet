@@ -15,13 +15,13 @@ public class Player : Character
     [SerializeField] private float speed;
 
 
-    private float eulerDirection = 0;
+    private float eulerDirection;
     private RaycastHit standingHit;
     private bool grounded;
     private Vector3 direction;
-    private bool stoped = false;
-    private bool attacking = false;
-    private bool readyToAttack = false;
+    private bool stoped;
+    private bool attacking;
+    private bool readyToAttack;
     private Bot currentTarget;
 
     //TEST HERE
@@ -117,6 +117,7 @@ public class Player : Character
         readyToAttack = true;
         stoped = true;
         rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero ;
 
         if (currentTarget != null)
         {
@@ -155,6 +156,7 @@ public class Player : Character
     private void PreAttack(Bot target)
     {
         transform.forward = target.TF.position - transform.position;
+
         animator.SetBool(Constants.IS_ATTACK, true);
         animator.SetBool(Constants.IS_IDLE, true);
         Invoke(nameof(Attack), 0.2f);
@@ -218,6 +220,10 @@ public class Player : Character
     {
         base.OnInit();
         SetupWeapon();
-    }
+        stoped = false;
+        attacking = false;
+        readyToAttack = false;
+        eulerDirection = 0;
+}
 
 }
