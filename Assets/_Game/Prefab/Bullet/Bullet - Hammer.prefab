@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb96aefa34c4be46b6de14fe5294093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 6d06feae5bc111343ad9c85f8781ea01, type: 2}
   speed: 4
   rotSpeed: 400
   rb: {fileID: 3078668823159099075}

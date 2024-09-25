@@ -22,9 +22,7 @@ public class Weapon : MonoBehaviour
 
     public void FireOnScale(float scale)
     {
-        Bullet bullet_ = Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation);
-        bullet_.transform.localScale = Vector3.one * scale;
-        bullet_.SetOwner(owner);
+        Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner);
     }
 
 

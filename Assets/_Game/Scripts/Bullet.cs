@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] BulletConfig config;
     [SerializeField] private float speed = 2;
     [SerializeField] private float rotSpeed = 100;
     [SerializeField] private Rigidbody rb;
@@ -13,11 +14,6 @@ public class Bullet : MonoBehaviour
 
 
     public Character owner;
-    private void Start()
-    {
-        rb.velocity = transform.forward * speed;
-        Invoke(nameof(OnDespawn), timeToExit);
-    }
 
     private void FixedUpdate()
     {
@@ -40,7 +36,7 @@ public class Bullet : MonoBehaviour
     {
         Character target = collision.gameObject.GetComponent<Character>();
         OnDespawn();
-        owner.LevelUp();
+        owner?.LevelUp();
         target.OnDead();
 
     }
@@ -53,6 +49,18 @@ public class Bullet : MonoBehaviour
     public void OnDespawn()
     {
         Object.Destroy(this.gameObject);
+    }
+
+    public void OnInit(float scale, Character owner)
+    {
+        speed = config.speed;
+        rotSpeed = config.rotSpeed;
+        timeToExit = config.timeToExit;
+        transform.localScale = Vector3.one * scale;
+        SetOwner(owner);
+
+        rb.velocity = transform.forward * speed;
+        Invoke(nameof(OnDespawn), timeToExit);
     }
 
 }
