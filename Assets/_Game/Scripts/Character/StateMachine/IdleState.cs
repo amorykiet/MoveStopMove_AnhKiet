@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IdleState : BaseState<Bot>
 {
-    private const float MAX_TIME_ATTACK = 3;
+    private const float MAX_TIME_ATTACK = 2;
     private float timeToAttack;
     private float timeCouter;
 

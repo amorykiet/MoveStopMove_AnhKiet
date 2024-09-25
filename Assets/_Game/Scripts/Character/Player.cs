@@ -21,7 +21,7 @@ public class Player : Character
     private Vector3 direction;
     private bool stoped;
     private bool attacking;
-    private bool readyToAttack;
+    private bool isMouseUp;
     private Bot currentTarget;
 
     //TEST HERE
@@ -114,7 +114,7 @@ public class Player : Character
 
     private void OnMouseButtonUp()
     {
-        readyToAttack = true;
+        isMouseUp = true;
         stoped = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero ;
@@ -132,7 +132,7 @@ public class Player : Character
 
     private void OnMouseButtonDown()
     {
-        readyToAttack = false;
+        isMouseUp = false;
         if (!attacking)
         {
             ResetAttack();
@@ -156,6 +156,7 @@ public class Player : Character
     private void PreAttack(Bot target)
     {
         transform.forward = target.TF.position - transform.position;
+        Debug.Log(transform.forward.ToString());
 
         animator.SetBool(Constants.IS_ATTACK, true);
         animator.SetBool(Constants.IS_IDLE, true);
@@ -164,7 +165,7 @@ public class Player : Character
 
     private void Attack()
     {
-        if (!readyToAttack) { return;}
+        if (!isMouseUp) { return;}
         if (attacking) { return; }
         attacking = true;
         currentWeapon.FireOnScale(modelScale);
@@ -222,8 +223,18 @@ public class Player : Character
         SetupWeapon();
         stoped = false;
         attacking = false;
-        readyToAttack = false;
+        isMouseUp = true;
         eulerDirection = 0;
 }
 
+    public override void AddCharacterInRange(Character chr)
+    {
+        base.AddCharacterInRange(chr); 
+
+        if (!attacking && isMouseUp && charactersInRange.Count == 1)
+        {
+            ChangeTarget(chr as Bot);
+            PreAttack(currentTarget);
+        }
+    }
 }
