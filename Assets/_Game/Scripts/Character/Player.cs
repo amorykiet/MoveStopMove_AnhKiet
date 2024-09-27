@@ -53,7 +53,6 @@ public class Player : Character
 
     private void FixedUpdate()
     {
-        direction = Vector3.zero;
         if (!stoped)
         {
             Move();
@@ -117,7 +116,7 @@ public class Player : Character
         isMouseUp = true;
         stoped = true;
         rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero ;
+        rb.angularVelocity = Vector3.zero;
 
         if (currentTarget != null)
         {
@@ -155,9 +154,7 @@ public class Player : Character
 
     private void PreAttack(Bot target)
     {
-        transform.forward = target.TF.position - transform.position;
-        Debug.Log(transform.forward.ToString());
-
+        transform.forward = Vector3.ProjectOnPlane((target.TF.position - transform.position), Vector3.up).normalized;
         animator.SetBool(Constants.IS_ATTACK, true);
         animator.SetBool(Constants.IS_IDLE, true);
         Invoke(nameof(Attack), 0.2f);
@@ -233,6 +230,7 @@ public class Player : Character
 
         if (!attacking && isMouseUp && charactersInRange.Count == 1)
         {
+            stoped = true;
             ChangeTarget(chr as Bot);
             PreAttack(currentTarget);
         }
