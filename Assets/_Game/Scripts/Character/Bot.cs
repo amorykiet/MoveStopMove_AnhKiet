@@ -51,7 +51,7 @@ public class Bot : Character
 
     public void Attack()
     {
-        currentWeapon.FireOnScale(modelScale);
+        currentWeapon.Fire(modelScale, attackSpeed);
         currentWeapon.Hide();
         Invoke(nameof(ResetAttack), 0.65f);
 

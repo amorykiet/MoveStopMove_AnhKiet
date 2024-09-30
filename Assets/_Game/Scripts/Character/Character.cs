@@ -15,11 +15,14 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected GameObject model;
-
+    
     protected Transform tf;
     protected Weapon currentWeapon;
     protected float radiusAttack;
     protected float modelScale;
+    protected float attackSpeed;
+    protected float speed;
+    
 
     public List<Character> charactersInRange = new();
     public Animator animator;
@@ -45,6 +48,11 @@ public abstract class Character : MonoBehaviour
     protected void SetupWeapon()
     {
         currentWeapon = Instantiate(weaponPref, handPos);
+        // Weapon weapon = LevelManager.Ins.GetRandomWeapon();
+        // currenrWeapon = Instantiate(weapon, handPos);
+        // Weapon weaponType = UserDataManager.Ins.GetUserWeaponType();
+        // Weapon weapon = LevelManager.Ins.GetWeaponByIdAndType(weaponType);
+        // currenrWeapon = Instantiate(weapon, handPos);
         currentWeapon.SetOwner(this);
         currentWeapon.SetBulletSpawnPos(bulletSpawnPos);
     }
@@ -95,6 +103,8 @@ public abstract class Character : MonoBehaviour
     {
         radiusAttack = config.radiusAttackStart;
         modelScale = config.modelScaleStart;
+        attackSpeed = config.attackSpeed;
+        speed = config.speed;
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
         model.transform.localScale = Vector3.one * modelScale;
 

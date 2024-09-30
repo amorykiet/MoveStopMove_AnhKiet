@@ -20,9 +20,9 @@ public class Weapon : MonoBehaviour
         bulletSpawnPos = spawnPos;
     }
 
-    public void FireOnScale(float scale)
+    public void Fire(float scale, float speed)
     {
-        Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner);
+        Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner, speed);
     }
 
 

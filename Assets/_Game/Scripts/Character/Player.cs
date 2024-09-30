@@ -12,8 +12,7 @@ public class Player : Character
     public DynamicJoystick joyStick;
 
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float speed;
-
+    
 
     private float eulerDirection;
     private RaycastHit standingHit;
@@ -165,7 +164,7 @@ public class Player : Character
         if (!isMouseUp) { return;}
         if (attacking) { return; }
         attacking = true;
-        currentWeapon.FireOnScale(modelScale);
+        currentWeapon.Fire(modelScale, attackSpeed);
         currentWeapon.Hide();
         Invoke(nameof(ResetAttack), 0.65f);
 
@@ -210,11 +209,12 @@ public class Player : Character
 
     public override void OnDead()
     {
-        base.OnDead();
         stoped = true;
+        rb.velocity = Vector3.zero;
+        base.OnDead();
     }
 
-    override public void OnInit()
+    public override void OnInit()
     {
         base.OnInit();
         SetupWeapon();
