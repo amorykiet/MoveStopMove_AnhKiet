@@ -8,9 +8,9 @@ public class Bullet : GameUnit
     [SerializeField] BulletConfig config;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject model;
-    private float speed = 2;
-    private float rotSpeed = 100;
-    private float timeToExit = 2.0f;
+    private float speed;
+    private float rotSpeed;
+    private float timeToExit;
 
 
     public Character owner;
@@ -18,7 +18,7 @@ public class Bullet : GameUnit
     private void FixedUpdate()
     {
         //model.transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up * (rotSpeed * Time.deltaTime));
+        model.transform.Rotate(Vector3.forward * (rotSpeed * Time.deltaTime));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -54,15 +54,17 @@ public class Bullet : GameUnit
 
     public void OnInit(float scale, Character owner, float speed)
     {
-        this.speed = speed;
-        model.transform.rotation = config.rotation;
         rotSpeed = config.rotSpeed;
         timeToExit = config.timeToExit;
-        transform.localScale = Vector3.one * scale;
+
+        this.speed = speed;
         SetOwner(owner);
 
+        transform.localScale = Vector3.one * scale;
         rb.velocity = transform.forward * speed;
+
         OnDespawn(timeToExit);
     }
+    
 
 }
