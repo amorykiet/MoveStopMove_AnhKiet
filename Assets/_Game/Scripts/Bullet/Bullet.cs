@@ -11,14 +11,26 @@ public class Bullet : GameUnit
     private float speed;
     private float rotSpeed;
     private float timeToExit;
+    private float timeCount;
 
 
     public Character owner;
+    private void Update()
+    {
+
+        if (timeCount < timeToExit)
+        {
+            timeCount += Time.deltaTime;
+        }
+        else
+        {
+            OnDespawn(0);
+        }
+    }
 
     private void FixedUpdate()
     {
-        //model.transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
-        model.transform.Rotate(Vector3.forward * (rotSpeed * Time.deltaTime));
+        model.transform.Rotate(Vector3.forward * (rotSpeed * Time.fixedDeltaTime));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -63,7 +75,7 @@ public class Bullet : GameUnit
         transform.localScale = Vector3.one * scale;
         rb.velocity = transform.forward * speed;
 
-        OnDespawn(timeToExit);
+        timeCount = 0;
     }
     
 
