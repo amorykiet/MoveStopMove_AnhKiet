@@ -8,7 +8,7 @@ public class SphereXRay : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             owner.HideInXRay();
         }
@@ -17,7 +17,7 @@ public class SphereXRay : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             owner.Show();
         }

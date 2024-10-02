@@ -22,12 +22,12 @@ public class SphereAttackRange : MonoBehaviour
 
     private void RemoveCharacter(Collider other)
     {
-        if (other.CompareTag("Bot"))
+        if (other.CompareTag(Constants.BOT_TAG))
         {
             Character chr = other.gameObject.GetComponent<Bot>();
             owner.RemoveCharacterOutRange(chr);
         }
-        else if (other.CompareTag("Player"))
+        else if (other.CompareTag(Constants.PLAYER_TAG))
         {
             Character chr = other.GetComponent<Player>();
             owner.RemoveCharacterOutRange(chr);

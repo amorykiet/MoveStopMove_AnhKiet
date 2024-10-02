@@ -23,7 +23,7 @@ public class Bullet : GameUnit
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bot") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag(Constants.BOT_TAG) || collision.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             CollideCharacter(collision);
         }
