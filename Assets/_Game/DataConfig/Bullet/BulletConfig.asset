@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf573415cf1cb4d4d8a5abf87fb0097d, type: 3}
   m_Name: BulletConfig
   m_EditorClassIdentifier: 
-  rotSpeed: 360
+  rotSpeed: 720
   timeToExit: 2

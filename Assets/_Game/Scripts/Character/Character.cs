@@ -17,15 +17,15 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected GameObject model;
     
     protected Transform tf;
-    protected Weapon currentWeapon;
     protected float radiusAttack;
-    protected float modelScale;
-    protected float attackSpeed;
     protected float speed;
     
 
     public List<Character> charactersInRange = new();
     public Animator animator;
+    public Weapon currentWeapon;
+    public float modelScale;
+    public float attackSpeed;
 
     public Transform TF
     {

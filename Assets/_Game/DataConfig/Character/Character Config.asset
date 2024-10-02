@@ -15,4 +15,4 @@ MonoBehaviour:
   radiusAttackStart: 5
   modelScaleStart: 1
   speed: 35
-  attackSpeed: 4
+  attackSpeed: 6

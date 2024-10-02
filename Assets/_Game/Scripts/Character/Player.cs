@@ -19,10 +19,10 @@ public class Player : Character
     private bool grounded;
     private Vector3 direction;
     private Bot currentTarget;
-    private bool stoped;
-    private bool attacking;
     private bool isMouseUp;
     private bool dead;
+
+    public bool stoped;
 
     //TEST HERE
     private void Start()
@@ -128,7 +128,7 @@ public class Player : Character
 
         if (currentTarget != null)
         {
-            PreAttack(currentTarget);
+            Attack(currentTarget);
         }
         else
         {
@@ -140,10 +140,7 @@ public class Player : Character
     private void OnMouseButtonDown()
     {
         isMouseUp = false;
-        if (!attacking)
-        {
-            ResetAttack();
-        }
+        ResetAttack();
 
     }
 
@@ -160,23 +157,11 @@ public class Player : Character
         return false;
     }
 
-    private void PreAttack(Bot target)
+    private void Attack(Bot target)
     {
         transform.forward = Vector3.ProjectOnPlane((target.TF.position - transform.position), Vector3.up).normalized;
         animator.SetBool(Constants.IS_ATTACK, true);
         animator.SetBool(Constants.IS_IDLE, true);
-        Invoke(nameof(Attack), 0.2f);
-    }
-
-    private void Attack()
-    {
-        if (!isMouseUp) { return;}
-        if (attacking) { return; }
-        attacking = true;
-        currentWeapon.Fire(modelScale, attackSpeed);
-        currentWeapon.Hide();
-        Invoke(nameof(ResetAttack), 0.65f);
-
     }
 
     private void ResetAttack()
@@ -184,7 +169,6 @@ public class Player : Character
         animator.SetBool(Constants.IS_ATTACK, false);
         currentWeapon.Show();
         stoped = false;
-        attacking = false;
     }
 
     private void Move()
@@ -230,8 +214,6 @@ public class Player : Character
         base.OnInit();
         SetupWeapon();
         stoped = false;
-        attacking = false;
-        isMouseUp = true;
         dead = false;
         eulerDirection = 0;
 }
@@ -240,12 +222,11 @@ public class Player : Character
     {
         base.AddCharacterInRange(chr); 
 
-        if (!attacking && isMouseUp && charactersInRange.Count == 1)
+        if (isMouseUp && charactersInRange.Count == 1)
         {
             stoped = true;
             ChangeTarget(chr as Bot);
-            PreAttack(currentTarget);
-            //OnMouseButtonUp();
+            Attack(currentTarget);
         }
     }
 }
