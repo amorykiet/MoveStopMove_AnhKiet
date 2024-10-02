@@ -22,7 +22,8 @@ public class Weapon : MonoBehaviour
 
     public void Fire(float scale, float speed)
     {
-        Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner, speed);
+        //Instantiate(bullet, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner, speed);
+        HBPool.Spawn<Bullet>(bullet.poolType, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner, speed);
     }
 
 

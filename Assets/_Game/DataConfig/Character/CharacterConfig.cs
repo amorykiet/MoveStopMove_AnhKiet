@@ -10,4 +10,5 @@ public class CharacterConfig : ScriptableObject
     public float speed;
     public float attackSpeed;
 
+
 }

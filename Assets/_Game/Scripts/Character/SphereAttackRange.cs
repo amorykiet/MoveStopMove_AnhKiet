@@ -34,20 +34,6 @@ public class SphereAttackRange : MonoBehaviour
         }
     }
 
-    private void RemoveBullet(Collider other)
-    {
-
-        if (other.CompareTag("Bullet"))
-        {
-            Bullet bullet = other.GetComponent<Bullet>();
-
-            if (bullet.owner == owner)
-            {
-                bullet.OnDespawn();
-            }
-        }
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {

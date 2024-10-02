@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : GameUnit
 {
     [SerializeField] BulletConfig config;
     [SerializeField] private Rigidbody rb;
@@ -17,17 +17,20 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //model.transform.rotation = Quaternion.Euler(new Vector3(0, model.transform.rotation.y + rotSpeed * Time.deltaTime, 0));
         model.transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //TEST
         if (collision.gameObject.CompareTag("Bot") || collision.gameObject.CompareTag("Player"))
         {
             CollideCharacter(collision);
+        }
+        else
+        {
+            OnDespawn(0);
+
         }
        
     }
@@ -35,7 +38,7 @@ public class Bullet : MonoBehaviour
     private void CollideCharacter(Collision collision)
     {
         Character target = collision.gameObject.GetComponent<Character>();
-        OnDespawn();
+        OnDespawn(0);
         if (owner  != null)
         {
             owner.LevelUp();
@@ -49,11 +52,6 @@ public class Bullet : MonoBehaviour
         this.owner = owner;
     }
 
-    public void OnDespawn()
-    {
-        Object.Destroy(this.gameObject);
-    }
-
     public void OnInit(float scale, Character owner, float speed)
     {
         this.speed = speed;
@@ -63,7 +61,7 @@ public class Bullet : MonoBehaviour
         SetOwner(owner);
 
         rb.velocity = transform.forward * speed;
-        Invoke(nameof(OnDespawn), timeToExit);
+        OnDespawn(timeToExit);
     }
 
 }

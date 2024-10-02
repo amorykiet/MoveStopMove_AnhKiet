@@ -74,9 +74,12 @@ public enum PoolType
 {
     None = 0,
 
-    Bullet = 1,
-    DashShadow = 2,
-    HpText = 20,
+    Bullet_Hammer = 1,
+    Bullet_Axe = 2,
+    Bullet_Candy = 3,
+    Bullet_Knife = 4,
+    Bullet_Boomerang = 5
+
 }
 
 
