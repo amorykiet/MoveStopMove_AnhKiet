@@ -8,5 +8,5 @@ public class BulletConfig : ScriptableObject
 {
     public float rotSpeed = 180;
     public float timeToExit = 1.0f;
-
+    public Quaternion rotation = Quaternion.Euler(90, 0, 0);
 }

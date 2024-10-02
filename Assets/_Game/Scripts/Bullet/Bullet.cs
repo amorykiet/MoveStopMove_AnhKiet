@@ -17,8 +17,8 @@ public class Bullet : GameUnit
 
     private void FixedUpdate()
     {
-        model.transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
-
+        //model.transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * (rotSpeed * Time.deltaTime));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,6 +55,7 @@ public class Bullet : GameUnit
     public void OnInit(float scale, Character owner, float speed)
     {
         this.speed = speed;
+        this.model.transform.rotation = config.rotation;
         rotSpeed = config.rotSpeed;
         timeToExit = config.timeToExit;
         transform.localScale = Vector3.one * scale;
