@@ -8,36 +8,14 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private Material activeMaterial;
     [SerializeField] private Material deactiveMaterial;
 
-    private List<GameObject> list = new List<GameObject>();
-    
-
-    private void OnTriggerEnter(Collider other)
+    public void Show()
     {
-        list.Add(other.gameObject);
+        mesh.material = activeMaterial;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void HideInXRay()
     {
-        list.Remove(other.gameObject);
+        mesh.material = deactiveMaterial;
     }
-
-    private void Update()
-    {
-        if (list.Count == 0)
-        {
-            if (mesh.material != activeMaterial)
-            {
-                mesh.material = activeMaterial;
-            }
-        }
-        else
-        {
-            if (mesh.material != deactiveMaterial)
-            {
-                mesh.material = deactiveMaterial;
-            }
-
-        }
-    }
-
+ 
 }

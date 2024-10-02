@@ -172,7 +172,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 460aa21b02b22a84fb91c63f036d10d5, type: 2}
   rb: {fileID: 2151430606314784743}
   handPos: {fileID: 3581302675891875705}
-  weaponPref: {fileID: 3368030114676347159, guid: 23e41c6799a79e344b46e3b9941629ab, type: 3}
+  weaponPref: {fileID: 6842690326114871074, guid: 1655c4809dc204f49bb8ef661dcb7af1, type: 3}
   bulletSpawnPos: {fileID: 8790592440093902839}
   attackSphere: {fileID: 503161857641717668}
   model: {fileID: 1287355082869365257}

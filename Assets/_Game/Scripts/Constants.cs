@@ -11,4 +11,9 @@ public class Constants : MonoBehaviour
     public const string IS_WIN = "IsWin";
     public const string IS_DANCE = "IsDance";
     public const string IS_ULTI = "IsUlti";
+
+    public const string BOT_TAG = "Bot";
+    public const string PLAYER_TAG = "Player";
+
+
 }

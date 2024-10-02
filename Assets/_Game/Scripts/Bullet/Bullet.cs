@@ -55,7 +55,7 @@ public class Bullet : GameUnit
     public void OnInit(float scale, Character owner, float speed)
     {
         this.speed = speed;
-        this.model.transform.rotation = config.rotation;
+        model.transform.rotation = config.rotation;
         rotSpeed = config.rotSpeed;
         timeToExit = config.timeToExit;
         transform.localScale = Vector3.one * scale;
