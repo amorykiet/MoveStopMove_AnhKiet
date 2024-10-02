@@ -221,6 +221,7 @@ public class Player : Character
         stoped = true;
         dead = true;
         rb.velocity = Vector3.zero;
+        ChangeTarget(null);
         base.OnDead();
     }
 
@@ -244,6 +245,7 @@ public class Player : Character
             stoped = true;
             ChangeTarget(chr as Bot);
             PreAttack(currentTarget);
+            //OnMouseButtonUp();
         }
     }
 }

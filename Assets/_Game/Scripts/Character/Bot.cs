@@ -71,7 +71,7 @@ public class Bot : Character
         randomPoint += transform.position;
 
         NavMeshHit hit;
-        if( NavMesh.SamplePosition(randomPoint, out hit, walkRadius/2.0f, NavMesh.AllAreas))
+        if( NavMesh.SamplePosition(randomPoint, out hit, walkRadius/2.0f, 1))
         {
             agent.SetDestination(hit.position);
         }
