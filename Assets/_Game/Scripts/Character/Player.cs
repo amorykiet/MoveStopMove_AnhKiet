@@ -18,10 +18,11 @@ public class Player : Character
     private RaycastHit standingHit;
     private bool grounded;
     private Vector3 direction;
+    private Bot currentTarget;
     private bool stoped;
     private bool attacking;
     private bool isMouseUp;
-    private Bot currentTarget;
+    private bool dead;
 
     //TEST HERE
     private void Start()
@@ -31,6 +32,10 @@ public class Player : Character
 
     private void Update()
     {
+        if (dead)
+        {
+            return;
+        }
         ChangeDragOnGround();
         
         UpdateTarget();
@@ -52,6 +57,10 @@ public class Player : Character
 
     private void FixedUpdate()
     {
+        if (dead)
+        {
+            return;
+        }
         if (!stoped)
         {
             Move();
@@ -210,6 +219,7 @@ public class Player : Character
     public override void OnDead()
     {
         stoped = true;
+        dead = true;
         rb.velocity = Vector3.zero;
         base.OnDead();
     }
@@ -221,6 +231,7 @@ public class Player : Character
         stoped = false;
         attacking = false;
         isMouseUp = true;
+        dead = false;
         eulerDirection = 0;
 }
 
