@@ -34,15 +34,33 @@ public class SphereAttackRange : MonoBehaviour
         }
     }
 
+    private void HideObstacle(Collider other)
+    {
+        other.gameObject.GetComponent<Obstacle>().HideInXRay();
+    }
+    private void ShowObstacle(Collider other)
+    {
+        other.gameObject.GetComponent<Obstacle>().Show();
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         AddCharacter(other);
+
+        if (owner.CompareTag(Constants.PLAYER_TAG) && other.CompareTag(Constants.OBSTACLE_TAG))
+        {
+            HideObstacle(other);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         RemoveCharacter(other);
+        if (owner.CompareTag(Constants.PLAYER_TAG) && other.CompareTag(Constants.OBSTACLE_TAG))
+        {
+            ShowObstacle(other);
+        }
     }
 
 }

@@ -14,6 +14,7 @@ public class Constants : MonoBehaviour
 
     public const string BOT_TAG = "Bot";
     public const string PLAYER_TAG = "Player";
+    public const string OBSTACLE_TAG = "Obstacle";
 
 
 }
