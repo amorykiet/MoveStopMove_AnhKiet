@@ -9,17 +9,19 @@ public class Level : MonoBehaviour
 
     public void OnInit()
     {
-        SpawnPositions();
+        SpawnPositions(10);
     }
 
-    public void SpawnPositions()
+    public void SpawnPositions(int amount)
     {
+        positionSpawnList.Clear();
+
         Vector3 randomPosition;
         NavMeshHit hit;
 
         int coutToExit = 0;
 
-        while (positionSpawnList.Count < 10)
+        while (positionSpawnList.Count < amount)
         {
             coutToExit++;
             randomPosition = Random.insideUnitSphere * 30.0f;

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab897da2c46b574ea443b6e8d37725a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 5
   bullet: {fileID: 2060704822538432755, guid: dd3ae3af941291349adf514ba3e3e35a, type: 3}
   model: {fileID: 6468090373529485299}
 --- !u!1 &6468090373529485299
