@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionSpawnList: []
+  charNumberStartWith: 10
 --- !u!1001 &774540222052060973
 PrefabInstance:
   m_ObjectHideFlags: 0

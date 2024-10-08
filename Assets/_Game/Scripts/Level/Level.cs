@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class Level : MonoBehaviour
 {
     public List<Vector3> positionSpawnList = new();
+    public int charNumberStartWith;
 
     public void OnInit()
     {
-        SpawnPositions(10);
+        SpawnPositions(charNumberStartWith);
     }
 
     public void SpawnPositions(int amount)

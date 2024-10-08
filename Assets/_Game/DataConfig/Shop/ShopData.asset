@@ -16,4 +16,24 @@ MonoBehaviour:
   PantsList: []
   ShieldList: []
   FullSetTypeList: []
-  WeaponList: []
+  WeaponList:
+  - price: 0
+    type: 1
+    buffType: 0
+    buffValue: 0
+  - price: 10
+    type: 2
+    buffType: 4
+    buffValue: 5
+  - price: 20
+    type: 3
+    buffType: 3
+    buffValue: 5
+  - price: 20
+    type: 4
+    buffType: 2
+    buffValue: 5
+  - price: 30
+    type: 5
+    buffType: 2
+    buffValue: 10

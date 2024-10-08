@@ -19,6 +19,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private int currentLevelIndex;
 
+    //TEST
     private void Start()
     {
         OnInit();
@@ -48,6 +49,7 @@ public class LevelManager : Singleton<LevelManager>
         //UIManager.Ins.GetUI<CanvasGamePlay>().PlayerLose();
     }
 
+    //UNDONE
     public void OnInit()
     {
         if (PlayerPrefs.HasKey("currentLevelIndex"))
@@ -80,16 +82,15 @@ public class LevelManager : Singleton<LevelManager>
         cam.FollowToTarget(player.TF);
         currentCharacterList.Add(player);
         //Setup Bot
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < currentLevel.charNumberStartWith - 1; i++)
         {
             Bot bot = Instantiate(botPref, transform);
             currentCharacterList.Add(bot);
         }
         //Setup for character
-        for (int i = 0;i < 10; i++)
+        for (int i = 0; i < currentLevel.charNumberStartWith; i++)
         {
             currentCharacterList[i].TF.position = currentLevel.positionSpawnList[i];
-            
             currentCharacterList[i].OnInit();
         }
     }

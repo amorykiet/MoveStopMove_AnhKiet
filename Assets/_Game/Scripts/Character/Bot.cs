@@ -26,6 +26,13 @@ public class Bot : Character
         }
     }
 
+    protected override void SetupWeapon()
+    {
+        Weapon weapon = ItemManager.Ins.GetWeaponPrefRandom();
+        currentWeapon = Instantiate(weapon, handPos);
+        base.SetupWeapon();
+    }
+
     override public void OnInit()
     {
         base.OnInit();

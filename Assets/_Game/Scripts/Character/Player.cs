@@ -24,11 +24,6 @@ public class Player : Character
 
     public bool stoped;
 
-    //TEST HERE
-    private void Start()
-    {
-        OnInit();
-    }
 
     private void Update()
     {
@@ -209,6 +204,13 @@ public class Player : Character
         base.OnDead();
     }
 
+    protected override void SetupWeapon()
+    {
+        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
+        currentWeapon = Instantiate(weaponPref, handPos);
+        base.SetupWeapon();
+    }
+
     public override void OnInit()
     {
         base.OnInit();
@@ -229,4 +231,6 @@ public class Player : Character
             Attack(currentTarget);
         }
     }
+
+
 }

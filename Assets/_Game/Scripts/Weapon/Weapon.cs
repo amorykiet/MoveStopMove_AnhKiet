@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public WeaponType Type;
+    public WeaponType type;
 
     [SerializeField] private Bullet bullet;
     [SerializeField] private GameObject model;

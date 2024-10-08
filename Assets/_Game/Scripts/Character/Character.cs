@@ -11,7 +11,6 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected CharacterConfig config;
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected Transform handPos;
-    [SerializeField] protected Weapon weaponPref;
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected GameObject model;
@@ -39,20 +38,8 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected virtual void SetupWeapon()
     {
-        OnInit();
-
-    }
-
-    protected void SetupWeapon()
-    {
-        currentWeapon = Instantiate(weaponPref, handPos);
-        // Weapon weapon = LevelManager.Ins.GetRandomWeapon();
-        // currenrWeapon = Instantiate(weapon, handPos);
-        // Weapon weaponType = UserDataManager.Ins.GetUserWeaponType();
-        // Weapon weapon = LevelManager.Ins.GetWeaponByIdAndType(weaponType);
-        // currenrWeapon = Instantiate(weapon, handPos);
         currentWeapon.SetOwner(this);
         currentWeapon.SetBulletSpawnPos(bulletSpawnPos);
     }
