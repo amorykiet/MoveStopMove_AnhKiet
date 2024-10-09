@@ -10,6 +10,7 @@ public class AttackAnimation : MonoBehaviour
     {
         owner.currentWeapon.Fire(owner.modelScale, owner.attackSpeed);
         owner.currentWeapon.Hide();
+        owner.attacking = true;
     }
 
     public void ResetAttack()
@@ -17,7 +18,7 @@ public class AttackAnimation : MonoBehaviour
         owner.animator.SetBool(Constants.IS_ATTACK, false);
         owner.currentWeapon.Show();
         owner.stoped = false;
-        //attacking = false;
+        owner.attacking = false;
     }
 
 }

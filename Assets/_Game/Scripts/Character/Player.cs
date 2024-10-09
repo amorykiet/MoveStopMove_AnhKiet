@@ -23,6 +23,7 @@ public class Player : Character
     private bool dead;
 
     public bool stoped;
+    public bool attacking;
 
 
     private void Update()
@@ -134,6 +135,10 @@ public class Player : Character
 
     private void OnMouseButtonDown()
     {
+        if (attacking)
+        {
+            return;
+        }
         isMouseUp = false;
         ResetAttack();
 
