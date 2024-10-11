@@ -67,7 +67,7 @@ public class UserData
     public UserData()
     {
         //Set up level
-        level = 1;
+        level = 0;
 
         //Setup weapon
         weaponList = new List<WeaponType>();

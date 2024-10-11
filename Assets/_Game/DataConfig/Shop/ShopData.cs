@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,18 @@ public class ShopData : ScriptableObject
     public List<ShopItem<FullSetType>> FullSetTypeList;
     public List<ShopItem<WeaponType>> WeaponList;
 
-    public ShopItem<WeaponType> GetWeapon(WeaponType type)
+    public ShopItem<T> GetItem<T> (List<ShopItem<T>> list, T type) where T: Enum
     {
-        return WeaponList.Where(o => o.type == type).ElementAt(0);
-    }
-    public ShopItem<WeaponType> GetWeapon()
-    {
-        return WeaponList.ElementAt(Random.Range(0, WeaponList.Count - 1));
+        return list.Where(o => o.type.Equals(type)).ElementAt(0);
     }
 
-    //Other item get function...
+    public ShopItem<T> GetItem<T>(List<ShopItem<T>> list) where T : Enum
+    {
+        return list.ElementAt(UnityEngine.Random.Range(0, WeaponList.Count - 1));
+    }
+
+    //Get Weapon
+    public ShopItem<WeaponType> GetWeapon(WeaponType type) => GetItem(WeaponList, type);
+    public ShopItem<WeaponType> GetWeapon() => GetItem(WeaponList);
+
 }

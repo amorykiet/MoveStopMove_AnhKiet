@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userData:
-    level: 1
+    level: 0
     weaponList: 01000000
     weaponAcquired: 1
 --- !u!4 &1184832034
@@ -825,7 +825,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 339443835}
   - {fileID: 1252632888}
+  - {fileID: 1184832034}
   - {fileID: 1096998066}
   - {fileID: 179079782}
-  - {fileID: 1184832034}
   - {fileID: 1007578518}

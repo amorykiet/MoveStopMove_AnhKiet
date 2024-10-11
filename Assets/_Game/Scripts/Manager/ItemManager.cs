@@ -18,4 +18,13 @@ public class ItemManager : Singleton<ItemManager>
         ShopItem<WeaponType> randomTypeWeapon = shopData.GetWeapon();
         return GetWeaponPrefByType(randomTypeWeapon.type);
     }
+
+    public void GetBuffWeaponByType(WeaponType type, out BuffType buffType , out float value)
+    {
+        ShopItem<WeaponType> weaponShopItem = shopData.GetWeapon(type);
+        value = weaponShopItem.buffValue;
+        buffType = weaponShopItem.buffType;
+    }
+
+    
 }
