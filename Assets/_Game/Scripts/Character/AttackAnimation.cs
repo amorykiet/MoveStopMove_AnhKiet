@@ -15,10 +15,8 @@ public class AttackAnimation : MonoBehaviour
 
     public void ResetAttack()
     {
-        owner.animator.SetBool(Constants.IS_ATTACK, false);
-        owner.currentWeapon.Show();
-        owner.stoped = false;
         owner.attacking = false;
+        owner.ResetAttack();
     }
 
 }

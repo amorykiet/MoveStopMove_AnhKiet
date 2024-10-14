@@ -118,6 +118,10 @@ public class Player : Character
     private void OnMouseButtonUp()
     {
         isMouseUp = true;
+        if (attacking)
+        {
+            return;
+        }
         stoped = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -135,11 +139,11 @@ public class Player : Character
 
     private void OnMouseButtonDown()
     {
+        isMouseUp = false;
         if (attacking)
         {
             return;
         }
-        isMouseUp = false;
         ResetAttack();
 
     }
@@ -164,10 +168,10 @@ public class Player : Character
         animator.SetBool(Constants.IS_IDLE, true);
     }
 
-    private void ResetAttack()
+    public void ResetAttack()
     {
-        animator.SetBool(Constants.IS_ATTACK, false);
         currentWeapon.Show();
+        animator.SetBool(Constants.IS_ATTACK, false);
         stoped = false;
     }
 
@@ -232,6 +236,8 @@ public class Player : Character
         if (isMouseUp && charactersInRange.Count == 1)
         {
             stoped = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             ChangeTarget(chr as Bot);
             Attack(currentTarget);
         }
