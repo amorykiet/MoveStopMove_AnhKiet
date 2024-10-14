@@ -118,10 +118,10 @@ public class UIManager : Singleton<UIManager>
     {
         if (!uiCanvasPrefab.ContainsKey(typeof(T)))
         {
-            //if (uiResources == null)
-            //{
-            //    uiResources = Resources.LoadAll<UICanvas>("UI/");
-            //}
+            if (uiResources.Length <= 0)
+            {
+                uiResources = Resources.LoadAll<UICanvas>("UI/");
+            }
 
             for (int i = 0; i < uiResources.Length; i++)
             {

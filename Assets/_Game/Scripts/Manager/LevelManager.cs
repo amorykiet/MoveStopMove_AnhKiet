@@ -18,13 +18,7 @@ public class LevelManager : Singleton<LevelManager>
     private List<Character> currentCharacterList = new();
 
     private int currentLevelIndex;
-
-    //TEST
-    private void Start()
-    {
-        OnInit();
-    }
-
+       
     private void WinLevel()
     {
         if (currentLevelIndex < levelList.Count - 1)
@@ -116,7 +110,10 @@ public class LevelManager : Singleton<LevelManager>
 
         foreach (var character in currentCharacterList)
         {
-            Destroy(character.gameObject);
+            if (character != null){
+
+                Destroy(character.gameObject);
+            }
         }
 
         currentCharacterList.Clear();
