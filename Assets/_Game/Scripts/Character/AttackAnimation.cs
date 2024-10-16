@@ -15,8 +15,8 @@ public class AttackAnimation : MonoBehaviour
 
     public void ResetAttack()
     {
-        owner.attacking = false;
         owner.ResetAttack();
+        owner.attacking = false;
     }
 
 }
