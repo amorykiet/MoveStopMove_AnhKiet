@@ -116,11 +116,11 @@ public class Player : Character
 
     private void OnMouseButtonUp()
     {
+        isMouseUp = true;
         if (attacking)
         {
             return;
         }
-        isMouseUp = true;
         stoped = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -138,11 +138,11 @@ public class Player : Character
 
     private void OnMouseButtonDown()
     {
+        isMouseUp = false;
         if (attacking)
         {
             return;
         }
-        isMouseUp = false;
         ResetAttack();
 
     }
