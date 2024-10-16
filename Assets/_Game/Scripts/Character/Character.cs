@@ -75,7 +75,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void OnDead()
     {
-        animator.SetBool("IsDead", true);
+        animator.SetBool(Constants.IS_DEAD, true);
         rb.useGravity = false;
         rb.detectCollisions = false;
         Invoke(nameof(OnDespawn), 1.0f);
