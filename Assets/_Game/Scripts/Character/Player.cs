@@ -233,7 +233,7 @@ public class Player : Character
     {
         base.AddCharacterInRange(chr); 
 
-        if (isMouseUp && charactersInRange.Count == 1)
+        if (isMouseUp && charactersInRange.Count == 1 && !attacking)
         {
             stoped = true;
             rb.velocity = Vector3.zero;
