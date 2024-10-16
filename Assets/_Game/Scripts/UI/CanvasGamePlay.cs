@@ -18,12 +18,14 @@ public class CanvasGamePlay : UICanvas
     {
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasVictory>();
+        GameManager.Ins.ChangeState(GameState.Finish);
     }
 
     public void OnPlayerLose()
     {
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasDefeated>();
+        GameManager.Ins.ChangeState(GameState.Finish);
     }
 
     public void Setting()

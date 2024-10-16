@@ -19,7 +19,7 @@ public class CanvasDefeated : UICanvas
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasGamePlay>().OnInit();
         LevelManager.Ins.ReloadLevel();
-        GameManager.ChangeState(GameState.GamePlay);
+        GameManager.Ins.ChangeState(GameState.GamePlay);
     }
 
     public void MainMenu()
@@ -27,6 +27,6 @@ public class CanvasDefeated : UICanvas
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasMainMenu>();
         LevelManager.Ins.ClearLevel();
-        GameManager.ChangeState(GameState.MainMenu);
+        GameManager.Ins.ChangeState(GameState.MainMenu);
     }
 }

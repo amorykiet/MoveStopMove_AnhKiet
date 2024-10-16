@@ -19,7 +19,7 @@ public class CanvasVictory : UICanvas
         UIManager.Ins.OpenUI<CanvasGamePlay>();
         LevelManager.Ins.ClearLevel();
         LevelManager.Ins.LoadNextLevel();
-        GameManager.ChangeState(GameState.GamePlay);
+        GameManager.Ins.ChangeState(GameState.GamePlay);
     }    
 
     public void Retry()
@@ -27,7 +27,7 @@ public class CanvasVictory : UICanvas
         LevelManager.Ins.ReloadLevel();
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasGamePlay>().OnInit();
-        GameManager.ChangeState(GameState.GamePlay);
+        GameManager.Ins.ChangeState(GameState.GamePlay);
     }
 
     public void MainMenu()
@@ -35,6 +35,6 @@ public class CanvasVictory : UICanvas
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasMainMenu>();
         LevelManager.Ins.ClearLevel();
-        GameManager.ChangeState(GameState.MainMenu);
+        GameManager.Ins.ChangeState(GameState.MainMenu);
     }
 }

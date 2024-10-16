@@ -8,18 +8,18 @@ public class GameManager : Singleton<GameManager>
 {
     private static GameState gameState;
 
-    public static void ChangeState(GameState state)
+    public void ChangeState(GameState state)
     {
         gameState = state;
 
         if (gameState == GameState.MainMenu)
         {
             UIManager.Ins.OpenUI<CanvasMainMenu>();
-            //LevelManager.Ins.ClearLevel();
+            LevelManager.Ins.ClearLevel();
         }
     }
 
-    public static bool IsState(GameState state) => gameState == state;
+    public bool IsState(GameState state) => gameState == state;
 
     private void Start()
     {

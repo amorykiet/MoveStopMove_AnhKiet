@@ -13,7 +13,7 @@ public class CanvasMainMenu : UICanvas
         Time.timeScale = 1;
         UIManager.Ins.OpenUI<CanvasGamePlay>().AttachJoyStick().OnInit();
         LevelManager.Ins.OnInit();
-        GameManager.ChangeState(GameState.GamePlay);
+        GameManager.Ins.ChangeState(GameState.GamePlay);
     }
 
     public void Setting()

@@ -18,7 +18,9 @@ public class LevelManager : Singleton<LevelManager>
     private List<Character> currentCharacterList = new();
 
     private int currentLevelIndex;
-       
+    
+
+    //UNDONE
     private void WinLevel()
     {
         if (currentLevelIndex < levelList.Count - 1)
@@ -35,12 +37,12 @@ public class LevelManager : Singleton<LevelManager>
 
     private void ChangeCanvasToWin()
     {
-        //UIManager.Ins.GetUI<CanvasGamePlay>().PlayerWin();
+        //UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerWin();
     }
 
     private void ChangeCanvasToLose()
     {
-        //UIManager.Ins.GetUI<CanvasGamePlay>().PlayerLose();
+        //UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
     }
 
     //UNDONE
@@ -105,7 +107,11 @@ public class LevelManager : Singleton<LevelManager>
         cam.FollowToTarget(cam.transform);
         HBPool.CollectAll();
         
-        Destroy(currentLevel.gameObject);
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel.gameObject);
+        }
+
         
 
         foreach (var character in currentCharacterList)
