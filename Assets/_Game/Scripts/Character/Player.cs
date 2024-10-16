@@ -19,9 +19,9 @@ public class Player : Character
     private bool grounded;
     private Vector3 direction;
     private Bot currentTarget;
-    private bool isMouseUp;
     private bool dead;
 
+    public bool isMouseUp;
     public bool stoped;
     public bool attacking;
 
@@ -40,8 +40,7 @@ public class Player : Character
         {
             OnMouseButtonUp();
         }
-
-        if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButtonDown(0))
         {
             OnMouseButtonDown();
         }
@@ -117,11 +116,11 @@ public class Player : Character
 
     private void OnMouseButtonUp()
     {
-        isMouseUp = true;
         if (attacking)
         {
             return;
         }
+        isMouseUp = true;
         stoped = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -139,11 +138,11 @@ public class Player : Character
 
     private void OnMouseButtonDown()
     {
-        isMouseUp = false;
         if (attacking)
         {
             return;
         }
+        isMouseUp = false;
         ResetAttack();
 
     }
@@ -165,7 +164,6 @@ public class Player : Character
     {
         transform.forward = Vector3.ProjectOnPlane((target.TF.position - transform.position), Vector3.up).normalized;
         animator.SetBool(Constants.IS_ATTACK, true);
-        animator.SetBool(Constants.IS_IDLE, true);
     }
 
     public void ResetAttack()

@@ -40,6 +40,12 @@ public class Bot : Character
         SetupWeapon();
     }
 
+    public override void OnDead()
+    {
+        agent.isStopped = true;
+        base.OnDead();
+    }
+
     public void ChangeState(BaseState<Bot> newState)
     {
         if (currentState != null) currentState.OnExit(this);
