@@ -16,16 +16,16 @@ public class CanvasVictory : UICanvas
     public void NextLevel()
     {
         UIManager.Ins.CloseAll();
-        UIManager.Ins.OpenUI<CanvasGamePlay>();
         LevelManager.Ins.ClearLevel();
         LevelManager.Ins.LoadNextLevel();
+        UIManager.Ins.OpenUI<CanvasGamePlay>();
         GameManager.Ins.ChangeState(GameState.GamePlay);
     }    
 
     public void Retry()
     {
-        LevelManager.Ins.ReloadLevel();
         UIManager.Ins.CloseAll();
+        LevelManager.Ins.ReloadLevel();
         UIManager.Ins.OpenUI<CanvasGamePlay>().OnInit();
         GameManager.Ins.ChangeState(GameState.GamePlay);
     }

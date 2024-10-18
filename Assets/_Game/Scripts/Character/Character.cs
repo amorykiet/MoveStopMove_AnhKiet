@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    //public event Action OnCharacterDead;
+    public static event Action<Character> OnCharacterDead;
 
     [SerializeField] protected CharacterConfig config;
     [SerializeField] protected Rigidbody rb;
@@ -75,6 +75,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void OnDead()
     {
+        OnCharacterDead?.Invoke(this);
         animator.SetBool(Constants.IS_DEAD, true);
         rb.useGravity = false;
         rb.detectCollisions = false;

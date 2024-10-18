@@ -36,6 +36,7 @@ public class Bot : Character
     override public void OnInit()
     {
         base.OnInit();
+        agent.enabled = true;
         ChangeState(new IdleState());
         SetupWeapon();
     }

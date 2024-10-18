@@ -46,7 +46,7 @@ public class Level : MonoBehaviour
         bool isSpawnable = true;
         foreach (var position in positionSpawnList)
         {
-            if (Vector3.Distance(myPos, position) < 6.0f)
+            if (Vector3.Distance(myPos, position) < 10.0f)
             {
                 isSpawnable = false;
                 break;

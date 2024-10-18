@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -16,9 +17,37 @@ public class LevelManager : Singleton<LevelManager>
 
     private Level currentLevel;
     private List<Character> currentCharacterList = new();
-
     private int currentLevelIndex;
-    
+
+    public int currentCharacterNumber = 0;
+
+    private void OnEnable()
+    {
+        Character.OnCharacterDead += Character_OnCharacterDead;
+    }
+
+    private void OnDisable()
+    {
+        Character.OnCharacterDead -= Character_OnCharacterDead;
+    }
+
+    private void Character_OnCharacterDead(Character obj)
+    {
+        if (obj is Player)
+        {
+            FailLevel();
+            currentCharacterNumber--;
+        }
+        else if (obj is Bot)
+        {
+            currentCharacterNumber--;
+            if (currentCharacterNumber < 2)
+            {
+                WinLevel();
+            }
+        }
+    }
+
 
     //UNDONE
     private void WinLevel()
@@ -37,17 +66,18 @@ public class LevelManager : Singleton<LevelManager>
 
     private void ChangeCanvasToWin()
     {
-        //UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerWin();
+        UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerWin();
     }
 
     private void ChangeCanvasToLose()
     {
-        //UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
+        UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
     }
 
     //UNDONE
     public void OnInit()
     {
+        currentCharacterNumber = 0;
         if (PlayerPrefs.HasKey("currentLevelIndex"))
         {
             currentLevelIndex = PlayerPrefs.GetInt("currentLevelIndex");
@@ -71,6 +101,7 @@ public class LevelManager : Singleton<LevelManager>
         //Setup Level
         currentLevel = Instantiate(levelList[levelIndex], transform);
         currentLevel.OnInit();
+        currentCharacterNumber = currentLevel.charNumberStartWith;
 
         //Setup Player
         Player player = Instantiate(playerPref, transform);
@@ -107,12 +138,6 @@ public class LevelManager : Singleton<LevelManager>
         cam.FollowToTarget(cam.transform);
         HBPool.CollectAll();
         
-        if (currentLevel != null)
-        {
-            Destroy(currentLevel.gameObject);
-        }
-
-        
 
         foreach (var character in currentCharacterList)
         {
@@ -121,6 +146,13 @@ public class LevelManager : Singleton<LevelManager>
                 Destroy(character.gameObject);
             }
         }
+
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel.gameObject);
+        }
+
+        
 
         currentCharacterList.Clear();
     }
