@@ -41,7 +41,7 @@ public class LevelManager : Singleton<LevelManager>
         else if (obj is Bot)
         {
             currentCharacterNumber--;
-            if (currentCharacterNumber < 2)
+            if (currentCharacterNumber == 1)
             {
                 WinLevel();
             }
@@ -56,7 +56,11 @@ public class LevelManager : Singleton<LevelManager>
         {
             PlayerPrefs.SetInt("currentLevelIndex", currentLevelIndex + 1);
         }
+
+        Player player = currentCharacterList.ElementAt(0) as Player;
+        player.Wining();
         Invoke(nameof(ChangeCanvasToWin), 2);
+
     }
 
     private void FailLevel()

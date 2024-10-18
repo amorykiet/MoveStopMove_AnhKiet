@@ -202,7 +202,7 @@ public class Player : Character
 
     }
 
-    public override void OnDead()
+    override public void OnDead()
     {
         stoped = true;
         dead = true;
@@ -211,23 +211,23 @@ public class Player : Character
         base.OnDead();
     }
 
-    protected override void SetupWeapon()
+    override protected void SetupWeapon()
     {
         Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
         currentWeapon = Instantiate(weaponPref, handPos);
         base.SetupWeapon();
     }
 
-    public override void OnInit()
+    override public void OnInit()
     {
         base.OnInit();
         SetupWeapon();
-        stoped = false;
+        stoped = true;
         dead = false;
         eulerDirection = 0;
 }
 
-    public override void AddCharacterInRange(Character chr)
+    override public void AddCharacterInRange(Character chr)
     {
         base.AddCharacterInRange(chr); 
 
@@ -241,5 +241,13 @@ public class Player : Character
         }
     }
 
-
+    public void Wining()
+    {
+        dead = true;
+        stoped = true;
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        rb.detectCollisions = false;
+        animator.SetBool(Constants.IS_WIN, true);
+    }
 }
