@@ -54,7 +54,8 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (currentLevelIndex < levelList.Count - 1)
         {
-            PlayerPrefs.SetInt("currentLevelIndex", currentLevelIndex + 1);
+            UserDataManager.Ins.SaveLevelIndex(currentLevelIndex + 1);
+            //PlayerPrefs.SetInt("currentLevelIndex", currentLevelIndex + 1);
         }
 
         Player player = currentCharacterList.ElementAt(0) as Player;
@@ -82,14 +83,15 @@ public class LevelManager : Singleton<LevelManager>
     public void OnInit()
     {
         currentCharacterNumber = 0;
-        if (PlayerPrefs.HasKey("currentLevelIndex"))
-        {
-            currentLevelIndex = PlayerPrefs.GetInt("currentLevelIndex");
-        }
-        else
-        {
-            currentLevelIndex = 0;
-        }
+        //if (PlayerPrefs.HasKey("currentLevelIndex"))
+        //{
+        //    currentLevelIndex = PlayerPrefs.GetInt("currentLevelIndex");
+        //}
+        //else
+        //{
+        //    currentLevelIndex = 0;
+        //}
+        currentLevelIndex = UserDataManager.Ins.GetLevelIndex();
 
         LoadLevel(currentLevelIndex);
     }

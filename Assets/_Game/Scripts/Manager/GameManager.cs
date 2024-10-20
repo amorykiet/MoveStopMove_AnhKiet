@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
         {
             UIManager.Ins.OpenUI<CanvasMainMenu>();
             LevelManager.Ins.ClearLevel();
+            UserDataManager.Ins.OnInit();
         }
     }
 

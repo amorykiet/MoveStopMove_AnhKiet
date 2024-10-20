@@ -12,7 +12,7 @@ public class UserDataManager : Singleton<UserDataManager>
     //TEST
     void Start()
     {
-        OnInit();
+        //OnInit();
     }
 
     private void OnDestroy()
@@ -33,10 +33,17 @@ public class UserDataManager : Singleton<UserDataManager>
         
     }
     
+    public int GetLevelIndex()
+    {
+        return userData.level;
+    }
 
-    public void SetCurrentLevelIndex(int index)
+
+    //UNDONE
+    public void SaveLevelIndex(int index)
     {
         userData.level = index;
+        SaveData();
     }
 
     public void SaveData() 
