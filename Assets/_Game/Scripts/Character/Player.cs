@@ -216,6 +216,7 @@ public class Player : Character
         Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
         currentWeapon = Instantiate(weaponPref, handPos);
         base.SetupWeapon();
+        
     }
 
     override public void OnInit()
@@ -225,7 +226,7 @@ public class Player : Character
         stoped = true;
         dead = false;
         eulerDirection = 0;
-}
+    }
 
     override public void AddCharacterInRange(Character chr)
     {

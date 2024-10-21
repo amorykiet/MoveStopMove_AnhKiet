@@ -38,13 +38,27 @@ public class UserDataManager : Singleton<UserDataManager>
         return userData.level;
     }
 
-
-    //UNDONE
+    //Save Level
     public void SaveLevelIndex(int index)
     {
         userData.level = index;
         SaveData();
     }
+
+    //TEST
+    //Purchase and equip weapon
+    public void EquipWeapon(WeaponType weapon)
+    {
+        userData.weaponEquipped = weapon;
+        SaveData();
+    }
+
+    public void PurchaseWeapon(WeaponType weapon)
+    {
+        userData.weaponPurchasedList.Add(weapon);
+        SaveData();
+    }
+
 
     public void SaveData() 
     {
@@ -54,7 +68,7 @@ public class UserDataManager : Singleton<UserDataManager>
 
     public Weapon GetCurrentWeapon()
     {
-        return ItemManager.Ins.GetWeaponPrefByType(userData.weaponAcquired);
+        return ItemManager.Ins.GetWeaponPrefByType(userData.weaponEquipped);
     }
 
 }
@@ -66,8 +80,9 @@ public class UserDataManager : Singleton<UserDataManager>
 public class UserData
 {
     public int level;
-    public List<WeaponType> weaponList;
-    public WeaponType weaponAcquired;
+    public List<WeaponType> weaponPurchasedList;
+    public WeaponType weaponEquipped;
+
     //Other item...
 
 
@@ -77,8 +92,9 @@ public class UserData
         level = 0;
 
         //Setup weapon
-        weaponList = new List<WeaponType>();
-        weaponAcquired = WeaponType.Hammer;
-        weaponList.Add(weaponAcquired);
+        weaponPurchasedList = new List<WeaponType>();
+        weaponEquipped = WeaponType.Hammer;
+        weaponPurchasedList.Add(weaponEquipped);
+        
     }
 }

@@ -8,6 +8,7 @@ public class ItemManager : Singleton<ItemManager>
     [SerializeField] private List<Weapon> weaponPrefList;
     [SerializeField] private ShopData shopData;
 
+    //Weapon
     public Weapon GetWeaponPrefByType (WeaponType type)
     {
         return weaponPrefList.Where(o => o.type == type).ElementAt(0);
