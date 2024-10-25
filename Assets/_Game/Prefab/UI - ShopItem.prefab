@@ -181,6 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d88f3326e847df4ebcbf6f89f6f7b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopItem:
+    sprite: {fileID: 0}
+    price: 0
+    buffType: 0
+    buffValue: 0
   image: {fileID: 6499283146644386197}
   selectButton: {fileID: 4819462548433148997}
   lockImage: {fileID: 5651126441166403806}
@@ -243,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
