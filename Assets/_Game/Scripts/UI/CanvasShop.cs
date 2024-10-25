@@ -34,6 +34,7 @@ public class CanvasShop : UICanvas
             Debug.Log(weaponItem.type + "Selected");
         }
 
+        buffDescriptionText.text = shopItem.GetBuffDescription();
         priceText.text = shopItem.price.ToString();
     }
 

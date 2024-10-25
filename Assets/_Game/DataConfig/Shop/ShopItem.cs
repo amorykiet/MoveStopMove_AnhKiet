@@ -19,6 +19,19 @@ public class ShopItem
     public BuffType buffType;
     public float buffValue;
 
+    //public string buffDescription => buffType.ToString() + " " + buffValue.ToString();
+    public string GetBuffDescription()
+    {
+        return buffType switch
+        {
+            BuffType.RangePercent => $"{buffValue}% Range",
+            BuffType.AttackSpeed => $"{buffValue}% Attack Speed",
+            BuffType.MoveSpeed => $"{buffValue}% Move Speed",
+            BuffType.None => $"None",
+            BuffType.RangePlus => $"+{buffValue} Range",
+            _ => "",
+        };
+    }
 }
 
 public enum HatType
