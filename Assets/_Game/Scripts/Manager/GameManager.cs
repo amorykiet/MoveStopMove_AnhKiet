@@ -14,9 +14,8 @@ public class GameManager : Singleton<GameManager>
 
         if (gameState == GameState.MainMenu)
         {
-            UIManager.Ins.OpenUI<CanvasMainMenu>();
             LevelManager.Ins.ClearLevel();
-            UserDataManager.Ins.OnInit();
+            UIManager.Ins.OpenUI<CanvasMainMenu>();
         }
     }
 
@@ -30,5 +29,6 @@ public class GameManager : Singleton<GameManager>
     public void OnInit()
     {
         ChangeState(GameState.MainMenu);
+        UserDataManager.Ins.OnInit();
     }
 }

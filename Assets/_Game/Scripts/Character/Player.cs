@@ -25,6 +25,8 @@ public class Player : Character
     public bool stoped;
     public bool attacking;
 
+    public int score;
+
 
     private void Update()
     {
@@ -223,6 +225,7 @@ public class Player : Character
     {
         base.OnInit();
         SetupWeapon();
+        score = 0;
         stoped = true;
         dead = false;
         eulerDirection = 0;
@@ -240,6 +243,14 @@ public class Player : Character
             ChangeTarget(chr as Bot);
             Attack(currentTarget);
         }
+    }
+
+    public override void LevelUp()
+    {
+        if(dead) return;
+        base.LevelUp();
+        score += 1;
+        Debug.Log("Player's Score: "+ score);
     }
 
     public void Wining()

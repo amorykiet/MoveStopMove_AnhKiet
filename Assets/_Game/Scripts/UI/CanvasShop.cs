@@ -10,6 +10,7 @@ public class CanvasShop : UICanvas
     [SerializeField] private ShopItemUI shopItemUIPref;
     [SerializeField] private Transform contentShopItemTF;
 
+    [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text buffDescriptionText;
     [SerializeField] private TMP_Text priceText;
 
@@ -50,6 +51,7 @@ public class CanvasShop : UICanvas
     public void OnInit(CanvasMainMenu mainMenu)
     {
         this.mainMenu = mainMenu;
+        moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
         OpenWeaponShop();
     }
 

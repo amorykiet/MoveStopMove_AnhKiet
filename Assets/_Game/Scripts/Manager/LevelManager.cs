@@ -31,14 +31,14 @@ public class LevelManager : Singleton<LevelManager>
         Character.OnCharacterDead -= Character_OnCharacterDead;
     }
 
-    private void Character_OnCharacterDead(Character obj)
+    private void Character_OnCharacterDead(Character character)
     {
-        if (obj is Player)
+        if (character is Player)
         {
             FailLevel();
             currentCharacterNumber--;
         }
-        else if (obj is Bot)
+        else if (character is Bot)
         {
             currentCharacterNumber--;
             if (currentCharacterNumber == 1)
@@ -60,12 +60,16 @@ public class LevelManager : Singleton<LevelManager>
 
         Player player = currentCharacterList.ElementAt(0) as Player;
         player.Wining();
+        UserDataManager.Ins.AddMoney(player.score);
         Invoke(nameof(ChangeCanvasToWin), 2);
 
     }
 
     private void FailLevel()
     {
+        Player player = currentCharacterList.ElementAt(0) as Player;
+        Debug.Log("Fail Level: + " + player.score + " money");
+        UserDataManager.Ins.AddMoney(player.score);
         Invoke(nameof(ChangeCanvasToLose), 2);
     }
 

@@ -7,7 +7,7 @@ public class UserDataManager : Singleton<UserDataManager>
 {
     public static string keyUserData = "UserData";
 
-    [SerializeField] private UserData userData;
+    private UserData userData;
 
     private void OnDestroy()
     {
@@ -16,8 +16,9 @@ public class UserDataManager : Singleton<UserDataManager>
 
     public void OnInit()
     {
-        if (userData == null)
+        if (!PlayerPrefs.HasKey(keyUserData))
         {
+            Debug.Log("New user data");
             userData = new UserData();
         }
         else
@@ -30,6 +31,11 @@ public class UserDataManager : Singleton<UserDataManager>
     public int GetLevelIndex()
     {
         return userData.level;
+    }
+
+    public int GetMoneyAmount()
+    {
+        return userData.money;
     }
 
     //Save Level
@@ -46,12 +52,20 @@ public class UserDataManager : Singleton<UserDataManager>
         SaveData();
     }
 
-    public void PurchaseWeapon(WeaponType weapon)
+    //UNDONE
+    public void PurchaseWeapon(WeaponType weapon, int cost)
     {
+        userData.money -= cost;
         userData.weaponPurchasedList.Add(weapon);
         SaveData();
     }
 
+    //Add money
+    public void AddMoney(int amount)
+    {
+        userData.money += amount;
+        Debug.Log("+ " + amount + " money");
+    }
 
     public void SaveData() 
     {
@@ -73,6 +87,7 @@ public class UserDataManager : Singleton<UserDataManager>
 public class UserData
 {
     public int level;
+    public int money;
     public List<WeaponType> weaponPurchasedList;
     public WeaponType weaponEquipped;
 
@@ -83,6 +98,7 @@ public class UserData
     {
         //Set up level
         level = 0;
+        money = 0;
 
         //Setup weapon
         weaponPurchasedList = new List<WeaponType>();
