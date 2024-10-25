@@ -182,6 +182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 6499283146644386197}
+  selectButton: {fileID: 4819462548433148997}
+  lockImage: {fileID: 5651126441166403806}
 --- !u!1 &7013056028666511847
 GameObject:
   m_ObjectHideFlags: 0

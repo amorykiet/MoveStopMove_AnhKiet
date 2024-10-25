@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class ShopItemUI : MonoBehaviour
 {
-    public static event Action<ShopItem> ShopItemSelected;
+    public static event Action<ShopItemUI> ShopItemUISelected;
+
+    public ShopItem shopItem;
 
     [SerializeField] private Image image;
+    [SerializeField] private Button selectButton;
+    [SerializeField] private Image lockImage;   
 
 
 
-    private ShopItem shopItem;
 
     public void OnInit(ShopItem<WeaponType> weapon)
     {
@@ -22,7 +25,13 @@ public class ShopItemUI : MonoBehaviour
 
     public void Select()
     {
-        ShopItemSelected?.Invoke(shopItem);
+        ShopItemUISelected?.Invoke(this);
+        selectButton.interactable = false;
+    }
+
+    public void UnSelected()
+    {
+        selectButton.interactable = true;
     }
 
 

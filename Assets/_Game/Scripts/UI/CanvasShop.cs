@@ -15,23 +15,32 @@ public class CanvasShop : UICanvas
 
     private CanvasMainMenu mainMenu;
     private ShopTab currentTab = ShopTab.None;
+    private ShopItemUI currentShopItemUI = null;
 
     private void OnEnable()
     {
-        ShopItemUI.ShopItemSelected += OnShopItemSelected;
+        ShopItemUI.ShopItemUISelected += OnShopItemSelected;
     }
 
     private void OnDisable()
     {
-        ShopItemUI.ShopItemSelected -= OnShopItemSelected;
+        ShopItemUI.ShopItemUISelected -= OnShopItemSelected;
     }
 
-    private void OnShopItemSelected(ShopItem shopItem)
+    private void OnShopItemSelected(ShopItemUI shopItemUI)
     {
+        if (currentShopItemUI != null)
+        {
+            currentShopItemUI.UnSelected();
+        }
+
+        currentShopItemUI = shopItemUI;
+
+        ShopItem shopItem = shopItemUI.shopItem;
+
         if (shopItem is ShopItem<WeaponType>)
         {
             ShopItem<WeaponType> weaponItem = shopItem as ShopItem<WeaponType>;
-            Debug.Log(weaponItem.type + "Selected");
         }
 
         buffDescriptionText.text = shopItem.GetBuffDescription();
