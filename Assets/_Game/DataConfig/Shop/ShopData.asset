@@ -17,23 +17,28 @@ MonoBehaviour:
   ShieldList: []
   FullSetTypeList: []
   WeaponList:
-  - price: 0
+  - sprite: {fileID: 21300000, guid: b4f51147594b33d409c0764c3cabcd30, type: 3}
+    price: 0
     type: 1
     buffType: 0
     buffValue: 0
-  - price: 10
+  - sprite: {fileID: 21300000, guid: c4e0cd44640277f48bad98543a93d52a, type: 3}
+    price: 10
     type: 2
     buffType: 4
     buffValue: 5
-  - price: 20
+  - sprite: {fileID: 21300000, guid: 7959006385ff8b34491cd4c9bcb82286, type: 3}
+    price: 20
     type: 3
     buffType: 3
     buffValue: 5
-  - price: 20
+  - sprite: {fileID: 21300000, guid: 722694f248bcbcc41988103379e7a336, type: 3}
+    price: 20
     type: 4
     buffType: 2
     buffValue: 5
-  - price: 30
+  - sprite: {fileID: 21300000, guid: bc338ce09bef0fd46b5f4ed362bf008c, type: 3}
+    price: 30
     type: 5
     buffType: 2
     buffValue: 10

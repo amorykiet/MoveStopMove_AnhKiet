@@ -9,12 +9,6 @@ public class UserDataManager : Singleton<UserDataManager>
 
     [SerializeField] private UserData userData;
 
-    //TEST
-    void Start()
-    {
-        //OnInit();
-    }
-
     private void OnDestroy()
     {
         SaveData();
@@ -45,7 +39,6 @@ public class UserDataManager : Singleton<UserDataManager>
         SaveData();
     }
 
-    //TEST
     //Purchase and equip weapon
     public void EquipWeapon(WeaponType weapon)
     {
@@ -95,6 +88,7 @@ public class UserData
         weaponPurchasedList = new List<WeaponType>();
         weaponEquipped = WeaponType.Hammer;
         weaponPurchasedList.Add(weaponEquipped);
+        
         
     }
 }

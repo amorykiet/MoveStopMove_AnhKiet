@@ -16,7 +16,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public Weapon GetWeaponPrefRandom()
     {
-        ShopItem<WeaponType> randomTypeWeapon = shopData.GetWeapon();
+        ShopItem<WeaponType> randomTypeWeapon = shopData.GetRandomWeapon();
         return GetWeaponPrefByType(randomTypeWeapon.type);
     }
 
@@ -27,5 +27,18 @@ public class ItemManager : Singleton<ItemManager>
         buffType = weaponShopItem.buffType;
     }
 
-    
+
+    //Hat
+
+    //public Weapon GetWeaponPrefByType(WeaponType type)
+    //{
+    //    return weaponPrefList.Where(o => o.type == type).ElementAt(0);
+    //}
+
+    //public Weapon GetWeaponPrefRandom()
+    //{
+    //    ShopItem<WeaponType> randomTypeWeapon = shopData.GetRandomWeapon();
+    //    return GetWeaponPrefByType(randomTypeWeapon.type);
+    //}
+
 }

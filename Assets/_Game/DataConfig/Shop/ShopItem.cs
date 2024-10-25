@@ -4,10 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class ShopItem<T> where T : Enum
+public class ShopItem<T>: ShopItem where T : Enum
 {
-    public float price;
     public T type;
+
+}
+
+
+[Serializable]
+public class ShopItem
+{
+    public Sprite sprite;
+    public float price;
     public BuffType buffType;
     public float buffValue;
 

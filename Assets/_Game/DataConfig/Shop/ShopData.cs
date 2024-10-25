@@ -18,13 +18,17 @@ public class ShopData : ScriptableObject
         return list.Where(o => o.type.Equals(type)).ElementAt(0);
     }
 
-    public ShopItem<T> GetItem<T>(List<ShopItem<T>> list) where T : Enum
+    public ShopItem<T> GetRandomItem<T>(List<ShopItem<T>> list) where T : Enum
     {
         return list.ElementAt(UnityEngine.Random.Range(0, WeaponList.Count - 1));
     }
 
     //Get Weapon
     public ShopItem<WeaponType> GetWeapon(WeaponType type) => GetItem(WeaponList, type);
-    public ShopItem<WeaponType> GetWeapon() => GetItem(WeaponList);
+    public ShopItem<WeaponType> GetRandomWeapon() => GetRandomItem(WeaponList);
+
+    //Get Hat
+    public ShopItem<HatType> GetHat(HatType type) => GetItem(HatList, type);
+    public ShopItem<HatType> GetRandomHat() => GetRandomItem(HatList);
 
 }
