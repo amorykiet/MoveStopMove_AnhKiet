@@ -18,7 +18,6 @@ public class UserDataManager : Singleton<UserDataManager>
     {
         if (!PlayerPrefs.HasKey(keyUserData))
         {
-            Debug.Log("New user data");
             userData = new UserData();
         }
         else
@@ -38,6 +37,16 @@ public class UserDataManager : Singleton<UserDataManager>
         return userData.money;
     }
 
+    public bool IsWeaponPurchased(WeaponType type)
+    {
+        return userData.weaponPurchasedList.Contains(type);
+    }
+
+    public bool IsWeaponEquipped(WeaponType type)
+    {
+        return userData.weaponEquipped == type;
+    }
+
     //Save Level
     public void SaveLevelIndex(int index)
     {
@@ -46,25 +55,32 @@ public class UserDataManager : Singleton<UserDataManager>
     }
 
     //Purchase and equip weapon
-    public void EquipWeapon(WeaponType weapon)
+    public void Equip(WeaponType weapon)
     {
         userData.weaponEquipped = weapon;
         SaveData();
     }
 
-    //UNDONE
-    public void PurchaseWeapon(WeaponType weapon, int cost)
+    public void Purchase(WeaponType weapon, int cost)
     {
         userData.money -= cost;
         userData.weaponPurchasedList.Add(weapon);
         SaveData();
     }
 
+    public bool IsPurchaseable(int cost)
+    { 
+        if (cost > userData.money)
+        {
+            return false;
+        }
+        return true;
+    }
+
     //Add money
     public void AddMoney(int amount)
     {
         userData.money += amount;
-        Debug.Log("+ " + amount + " money");
     }
 
     public void SaveData() 

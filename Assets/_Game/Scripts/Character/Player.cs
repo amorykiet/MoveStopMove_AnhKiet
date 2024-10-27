@@ -250,7 +250,6 @@ public class Player : Character
         if(dead) return;
         base.LevelUp();
         score += 1;
-        Debug.Log("Player's Score: "+ score);
     }
 
     public void Wining()

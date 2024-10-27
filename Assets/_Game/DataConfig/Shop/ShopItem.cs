@@ -15,7 +15,7 @@ public class ShopItem<T>: ShopItem where T : Enum
 public class ShopItem
 {
     public Sprite sprite;
-    public float price;
+    public int price;
     public BuffType buffType;
     public float buffValue;
 

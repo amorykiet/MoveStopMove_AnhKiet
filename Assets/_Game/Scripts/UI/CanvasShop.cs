@@ -12,11 +12,17 @@ public class CanvasShop : UICanvas
 
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text buffDescriptionText;
+
+    [SerializeField] private GameObject equipUI;
+    [SerializeField] private GameObject buyUI;
+
     [SerializeField] private TMP_Text priceText;
+    [SerializeField] private TMP_Text equipText;
 
     private CanvasMainMenu mainMenu;
     private ShopTab currentTab = ShopTab.None;
     private ShopItemUI currentShopItemUI = null;
+    private ShopItemUI equipedShopItemUI = null;
 
     private void OnEnable()
     {
@@ -28,30 +34,10 @@ public class CanvasShop : UICanvas
         ShopItemUI.ShopItemUISelected -= OnShopItemSelected;
     }
 
-    private void OnShopItemSelected(ShopItemUI shopItemUI)
-    {
-        if (currentShopItemUI != null)
-        {
-            currentShopItemUI.UnSelected();
-        }
-
-        currentShopItemUI = shopItemUI;
-
-        ShopItem shopItem = shopItemUI.shopItem;
-
-        if (shopItem is ShopItem<WeaponType>)
-        {
-            ShopItem<WeaponType> weaponItem = shopItem as ShopItem<WeaponType>;
-        }
-
-        buffDescriptionText.text = shopItem.GetBuffDescription();
-        priceText.text = shopItem.price.ToString();
-    }
-
     public void OnInit(CanvasMainMenu mainMenu)
     {
         this.mainMenu = mainMenu;
-        moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
+        UpdateMoneyText();
         OpenWeaponShop();
     }
 
@@ -66,6 +52,30 @@ public class CanvasShop : UICanvas
         ChangeTab(ShopTab.Weapon);
     }
 
+    public void Purchase()
+    {
+        if (!UserDataManager.Ins.IsPurchaseable(currentShopItemUI.shopItem.price)) return;
+        currentShopItemUI.Purchase();
+        SetupOptionOfShopItemUI(currentShopItemUI);
+        UpdateMoneyText();
+    }
+
+    public void Equip()
+    {
+        if (currentShopItemUI != equipedShopItemUI)
+        {
+            currentShopItemUI.Equip();
+            equipedShopItemUI.UnEquip();
+        }
+        SetupOptionOfShopItemUI(currentShopItemUI);
+        SetupOptionOfShopItemUI(equipedShopItemUI);
+    }
+
+    private void UpdateMoneyText()
+    {
+        moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
+    }
+
     private void ChangeTab(ShopTab tab)
     {
         if (tab == currentTab) return;
@@ -77,7 +87,6 @@ public class CanvasShop : UICanvas
                 foreach (ShopItem<WeaponType> weaponItem in shopData.WeaponList)
                 {
                     ShopItemUI weaponItemUI = Instantiate(shopItemUIPref, contentShopItemTF);
-                    //weaponItemUI.SetImage(weaponItem.sprite);
                     weaponItemUI.OnInit(weaponItem);
                 }
                 break;
@@ -86,6 +95,50 @@ public class CanvasShop : UICanvas
 
         currentTab = tab;
     }
+
+
+    private void OnShopItemSelected(ShopItemUI shopItemUI)
+    {
+        if (currentShopItemUI != null)
+        {
+            currentShopItemUI.UnSelected();
+        }
+
+        currentShopItemUI = shopItemUI;
+
+        SetupOptionOfShopItemUI(shopItemUI);
+    }
+
+    private void SetupOptionOfShopItemUI(ShopItemUI shopItemUI)
+    {
+        ShopItem shopItem = shopItemUI.shopItem;
+
+        if (shopItemUI.isPurchased)
+        {
+            equipUI.gameObject.SetActive(true);
+            buyUI.gameObject.SetActive(false);
+
+            if (shopItemUI.isEquipped)
+            {
+                equipText.text = Constants.EQUIPPED_OPTION;
+                equipedShopItemUI = shopItemUI;
+            }
+            else
+            {
+                equipText.text = Constants.EQUIP_OPTION;
+            }
+
+        }
+        else
+        {
+            equipUI.gameObject.SetActive(false);
+            buyUI.gameObject.SetActive(true);
+            priceText.text = shopItem.price.ToString();
+        }
+
+        buffDescriptionText.text = shopItem.GetBuffDescription();
+    }
+
 }
 
 enum ShopTab

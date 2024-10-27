@@ -68,7 +68,6 @@ public class LevelManager : Singleton<LevelManager>
     private void FailLevel()
     {
         Player player = currentCharacterList.ElementAt(0) as Player;
-        Debug.Log("Fail Level: + " + player.score + " money");
         UserDataManager.Ins.AddMoney(player.score);
         Invoke(nameof(ChangeCanvasToLose), 2);
     }
@@ -83,18 +82,9 @@ public class LevelManager : Singleton<LevelManager>
         UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
     }
 
-    //UNDONE
     public void OnInit()
     {
         currentCharacterNumber = 0;
-        //if (PlayerPrefs.HasKey("currentLevelIndex"))
-        //{
-        //    currentLevelIndex = PlayerPrefs.GetInt("currentLevelIndex");
-        //}
-        //else
-        //{
-        //    currentLevelIndex = 0;
-        //}
         currentLevelIndex = UserDataManager.Ins.GetLevelIndex();
 
         LoadLevel(currentLevelIndex);
