@@ -16,16 +16,16 @@ public class ShopItemUI : MonoBehaviour
     [SerializeField] private Button selectButton;
     [SerializeField] private Image lockImage; 
 
-    //OnInit for weapon
-    public void OnInit(ShopItem<WeaponType> weapon)
+    //OnInit
+    public void OnInit(ShopItem _shopItem)
     {
-        shopItem = weapon;
-        if (UserDataManager.Ins.IsWeaponPurchased(weapon.type))
+        shopItem = _shopItem;
+        if (UserDataManager.Ins.IsItemPurchased(shopItem))
         {
             isPurchased = true;
             lockImage.gameObject.SetActive(false);
             
-            if (UserDataManager.Ins.IsWeaponEquipped(weapon.type))
+            if (UserDataManager.Ins.IsItemEquipped(shopItem))
             {
                 isEquipped = true;
                 Select();
@@ -36,13 +36,8 @@ public class ShopItemUI : MonoBehaviour
     }
 
     public void Purchase()
-    {
-        if (shopItem is ShopItem<WeaponType>)
-        {
-            ShopItem<WeaponType> weaponItem = shopItem as ShopItem<WeaponType>;
-            UserDataManager.Ins.Purchase(weaponItem.type, weaponItem.price);
-        }
-
+    { 
+        UserDataManager.Ins.Purchase(shopItem);
         isPurchased = true;
         lockImage.gameObject.SetActive(false);
     }
@@ -50,11 +45,7 @@ public class ShopItemUI : MonoBehaviour
     public void Equip()
     {
         isEquipped = true;
-        if (shopItem is ShopItem<WeaponType>)
-        {
-            ShopItem<WeaponType> weaponItem = shopItem as ShopItem<WeaponType>;
-            UserDataManager.Ins.Equip(weaponItem.type);
-        }
+        UserDataManager.Ins.Equip(shopItem);
     }
 
     public void UnEquip()

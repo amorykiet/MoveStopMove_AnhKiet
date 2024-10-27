@@ -37,14 +37,25 @@ public class UserDataManager : Singleton<UserDataManager>
         return userData.money;
     }
 
-    public bool IsWeaponPurchased(WeaponType type)
+    public bool IsItemPurchased(ShopItem item)
     {
-        return userData.weaponPurchasedList.Contains(type);
+        if (item is ShopItem<WeaponType> weapon)
+        {
+            return IsWeaponPurchased(weapon.type);
+        }
+
+        return false;
     }
 
-    public bool IsWeaponEquipped(WeaponType type)
+    public bool IsItemEquipped(ShopItem item)
     {
-        return userData.weaponEquipped == type;
+        if (item is ShopItem<WeaponType> weapon)
+        {
+            return IsWeaponEquipped(weapon.type);
+        }
+
+        return false;
+
     }
 
     //Save Level
@@ -55,16 +66,23 @@ public class UserDataManager : Singleton<UserDataManager>
     }
 
     //Purchase and equip weapon
-    public void Equip(WeaponType weapon)
+    public void Equip(ShopItem item)
     {
-        userData.weaponEquipped = weapon;
+        if (item is ShopItem<WeaponType> weapon)
+        {
+            userData.weaponEquipped = weapon.type;
+        }
         SaveData();
     }
 
-    public void Purchase(WeaponType weapon, int cost)
+    public void Purchase(ShopItem item)
     {
-        userData.money -= cost;
-        userData.weaponPurchasedList.Add(weapon);
+        userData.money -= item.price;
+        if (item is ShopItem<WeaponType> weapon)
+        {
+            userData.weaponPurchasedList.Add(weapon.type);
+        }
+
         SaveData();
     }
 
@@ -92,6 +110,17 @@ public class UserDataManager : Singleton<UserDataManager>
     public Weapon GetCurrentWeapon()
     {
         return ItemManager.Ins.GetWeaponPrefByType(userData.weaponEquipped);
+    }
+
+
+    private bool IsWeaponPurchased(WeaponType type)
+    {
+        return userData.weaponPurchasedList.Contains(type);
+    }
+
+    private bool IsWeaponEquipped(WeaponType type)
+    {
+        return userData.weaponEquipped == type;
     }
 
 }
