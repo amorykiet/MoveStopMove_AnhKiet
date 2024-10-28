@@ -213,18 +213,12 @@ public class Player : Character
         base.OnDead();
     }
 
-    override protected void SetupWeapon()
-    {
-        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
-        currentWeapon = Instantiate(weaponPref, handPos);
-        base.SetupWeapon();
-        
-    }
-
     override public void OnInit()
     {
         base.OnInit();
         SetupWeapon();
+        SetupHat();
+        SetupPant();
         score = 0;
         stoped = true;
         dead = false;
@@ -261,4 +255,13 @@ public class Player : Character
         rb.detectCollisions = false;
         animator.SetBool(Constants.IS_WIN, true);
     }
+
+    override protected void SetupWeapon()
+    {
+        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
+        currentWeapon = Instantiate(weaponPref, handPos);
+        base.SetupWeapon();
+    }
+
+    
 }

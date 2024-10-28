@@ -23,6 +23,7 @@ public class CanvasShop : UICanvas
     private ShopTab currentTab = ShopTab.None;
     private ShopItemUI currentShopItemUI = null;
     private ShopItemUI equipedShopItemUI = null;
+    private List<ShopItemUI> currentListUI = new List<ShopItemUI>();
 
     private void OnEnable()
     {
@@ -52,6 +53,16 @@ public class CanvasShop : UICanvas
         ChangeTab(ShopTab.Weapon);
     }
 
+    public void OpenHatShop()
+    {
+        ChangeTab(ShopTab.Hat);
+    }
+
+    public void OpenPantShop()
+    {
+        ChangeTab(ShopTab.Pants);
+    }
+
     public void Purchase()
     {
         if (!UserDataManager.Ins.IsPurchaseable(currentShopItemUI.shopItem.price)) return;
@@ -79,15 +90,33 @@ public class CanvasShop : UICanvas
     private void ChangeTab(ShopTab tab)
     {
         if (tab == currentTab) return;
-
+        
+        ClearCurrentListShopItemUI();
         switch(tab)
         {
             case ShopTab.Weapon:
             {
                 foreach (ShopItem<WeaponType> weaponItem in shopData.WeaponList)
                 {
-                    ShopItemUI weaponItemUI = Instantiate(shopItemUIPref, contentShopItemTF);
-                    weaponItemUI.OnInit(weaponItem);
+                    AddItemToShopUIList(weaponItem);
+                }
+                break;
+            }
+
+            case ShopTab.Hat:
+            {
+                foreach (ShopItem<HatType> hatItem in shopData.HatList)
+                {
+                    AddItemToShopUIList(hatItem);
+                }
+                break;
+            }
+
+            case ShopTab.Pants:
+            {
+                foreach (ShopItem<PantsType> pantItem in shopData.PantsList)
+                {
+                    AddItemToShopUIList(pantItem);
                 }
                 break;
             }
@@ -139,6 +168,21 @@ public class CanvasShop : UICanvas
         buffDescriptionText.text = shopItem.GetBuffDescription();
     }
 
+    private void ClearCurrentListShopItemUI()
+    {
+        foreach (ShopItemUI itemUI in currentListUI)
+        {
+            Destroy(itemUI.gameObject);
+        }
+        currentListUI.Clear();
+    }
+
+    private void AddItemToShopUIList(ShopItem _itemUI)
+    {
+        ShopItemUI itemUI = Instantiate(shopItemUIPref, contentShopItemTF);
+        itemUI.OnInit(_itemUI);
+        currentListUI.Add(itemUI);
+    }
 }
 
 enum ShopTab

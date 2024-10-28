@@ -39,6 +39,8 @@ public class Bot : Character
         agent.enabled = true;
         ChangeState(new IdleState());
         SetupWeapon();
+        SetupHat();
+        SetupPant();
     }
 
     public override void OnDead()
@@ -93,5 +95,20 @@ public class Bot : Character
         {
             ChangeState(new IdleState());
         }
+    }
+
+    protected override void SetupHat()
+    {
+        Hat hatPref = ItemManager.Ins.GetHatPrefRandom();
+        if (hatPref.type == HatType.None) return;
+        currentHat = Instantiate(hatPref, headPos);
+    }
+
+    protected override void SetupPant()
+    {
+        Pant _pant = ItemManager.Ins.GetPantMatRandom();
+        if (_pant.type == PantsType.None) return;
+        currentPant = _pant;
+        pant.SetMat(currentPant.material);
     }
 }

@@ -12,33 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5da5999045864449858eb80692c390, type: 3}
   m_Name: ShopData
   m_EditorClassIdentifier: 
-  HatList: []
-  PantsList: []
+  HatList:
+  - sprite: {fileID: 21300000, guid: 73b497eb58db4514aa7ff99a590019ca, type: 3}
+    price: 10
+    buffType: 1
+    buffValue: 2
+    type: 1
+  - sprite: {fileID: 21300000, guid: 8164eb45bfe4c844984f3c498febf7e0, type: 3}
+    price: 20
+    buffType: 1
+    buffValue: 4
+    type: 2
+  PantsList:
+  - sprite: {fileID: 21300000, guid: 6a4497357083aab4e8acb976b0801096, type: 3}
+    price: 30
+    buffType: 3
+    buffValue: 10
+    type: 1
+  - sprite: {fileID: 21300000, guid: bf8d93c60e5a55f4eba20f15953dddf2, type: 3}
+    price: 20
+    buffType: 3
+    buffValue: 5
+    type: 2
   ShieldList: []
   FullSetTypeList: []
   WeaponList:
   - sprite: {fileID: 21300000, guid: b4f51147594b33d409c0764c3cabcd30, type: 3}
     price: 0
-    type: 1
     buffType: 0
     buffValue: 0
+    type: 1
   - sprite: {fileID: 21300000, guid: c4e0cd44640277f48bad98543a93d52a, type: 3}
     price: 10
-    type: 2
     buffType: 4
     buffValue: 5
+    type: 2
   - sprite: {fileID: 21300000, guid: 7959006385ff8b34491cd4c9bcb82286, type: 3}
     price: 20
-    type: 3
     buffType: 3
     buffValue: 5
+    type: 3
   - sprite: {fileID: 21300000, guid: 722694f248bcbcc41988103379e7a336, type: 3}
     price: 20
-    type: 4
     buffType: 2
     buffValue: 5
+    type: 4
   - sprite: {fileID: 21300000, guid: bc338ce09bef0fd46b5f4ed362bf008c, type: 3}
     price: 30
-    type: 5
     buffType: 2
     buffValue: 10
+    type: 5

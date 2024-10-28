@@ -1107,6 +1107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8014617849906372668}
   - component: {fileID: 1899265626371199113}
+  - component: {fileID: 4859784212533664509}
   m_Layer: 6
   m_Name: Pants
   m_TagString: Untagged
@@ -1236,6 +1237,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.022025019, y: -0.2036489, z: 0.06559239}
     m_Extent: {x: 0.37928572, y: 0.32483855, z: 0.38066572}
   m_DirtyAABB: 0
+--- !u!114 &4859784212533664509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4118732211590898030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35fdcb6c2f7a8548bdc12b660b54a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pantSkin: {fileID: 1899265626371199113}
 --- !u!1 &4390054019997372169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,20 +1526,26 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 460aa21b02b22a84fb91c63f036d10d5, type: 2}
   rb: {fileID: 2151430606314784743}
   handPos: {fileID: 3581302675891875705}
-  weaponPref: {fileID: 6842690326114871074, guid: 1655c4809dc204f49bb8ef661dcb7af1, type: 3}
+  headPos: {fileID: 3007965439531335784}
+  pant: {fileID: 4859784212533664509}
   bulletSpawnPos: {fileID: 8790592440093902839}
   attackSphere: {fileID: 503161857641717668}
   model: {fileID: 1287355082869365257}
   charactersInRange: []
   animator: {fileID: 5263793968775857504}
   currentWeapon: {fileID: 0}
+  currentHat: {fileID: 0}
+  currentPant: {fileID: 0}
   modelScale: 0
   attackSpeed: 0
   joyStick: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  isMouseUp: 0
   stoped: 0
+  attacking: 0
+  score: 0
 --- !u!54 &2151430606314784743
 Rigidbody:
   m_ObjectHideFlags: 0
