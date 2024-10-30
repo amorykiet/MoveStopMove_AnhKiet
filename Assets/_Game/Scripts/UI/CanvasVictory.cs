@@ -16,7 +16,6 @@ public class CanvasVictory : UICanvas
     public void NextLevel()
     {
         UIManager.Ins.CloseAll();
-        LevelManager.Ins.ClearLevel();
         LevelManager.Ins.LoadNextLevel();
         UIManager.Ins.OpenUI<CanvasGamePlay>();
         GameManager.Ins.ChangeState(GameState.GamePlay);

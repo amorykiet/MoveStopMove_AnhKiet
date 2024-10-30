@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public abstract class Character : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public abstract class Character : MonoBehaviour
     public Pant currentPant;
     public float modelScale;
     public float attackSpeed;
+    public int score;
 
     public Transform TF
     {
@@ -94,7 +96,8 @@ public abstract class Character : MonoBehaviour
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
         model.transform.localScale = Vector3.one * modelScale;
 
-
+        score += 1;
+        charUI.ScoreText.text = score.ToString();
     }
 
     public virtual void OnDead()
@@ -119,6 +122,8 @@ public abstract class Character : MonoBehaviour
         speed = config.speed;
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
         model.transform.localScale = Vector3.one * modelScale;
+
+        score = 0;
         charUI.OnInit();
     }
 

@@ -28,7 +28,7 @@ public class CanvasDefeated : UICanvas
     {
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasMainMenu>();
-        //LevelManager.Ins.ClearLevel();
+        LevelManager.Ins.ClearLevel();
         GameManager.Ins.ChangeState(GameState.MainMenu);
     }
 }

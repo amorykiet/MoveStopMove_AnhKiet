@@ -24,7 +24,6 @@ public class Player : Character
     public bool stoped;
     public bool attacking;
 
-    public int score;
 
 
     private void Update()
@@ -223,7 +222,6 @@ public class Player : Character
         SetupWeapon();
         SetupHat();
         SetupPant();
-        score = 0;
         stoped = true;
         dead = false;
         eulerDirection = 0;
@@ -247,8 +245,6 @@ public class Player : Character
     {
         if(dead) return;
         base.LevelUp();
-        score += 1;
-        charUI.ScoreText.text = score.ToString();
     }
 
     public void Wining()
