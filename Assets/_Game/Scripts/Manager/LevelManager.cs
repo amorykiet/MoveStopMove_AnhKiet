@@ -38,10 +38,12 @@ public class LevelManager : Singleton<LevelManager>
         {
             FailLevel();
             currentCharacterNumber--;
+            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
         }
         else if (character is Bot)
         {
             currentCharacterNumber--;
+            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
             if (currentCharacterNumber == 1)
             {
                 WinLevel();
@@ -50,13 +52,11 @@ public class LevelManager : Singleton<LevelManager>
     }
 
 
-    //UNDONE
     private void WinLevel()
     {
         if (currentLevelIndex < levelList.Count - 1)
         {
             UserDataManager.Ins.SaveLevelIndex(currentLevelIndex + 1);
-            //PlayerPrefs.SetInt("currentLevelIndex", currentLevelIndex + 1);
         }
 
         Player player = currentCharacterList.ElementAt(0) as Player;
@@ -103,6 +103,7 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levelList[levelIndex], transform);
         currentLevel.OnInit();
         currentCharacterNumber = currentLevel.charNumberStartWith;
+        UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
         for (int i = 0; i < currentCharacterNumber; i++)
         {
             currentNameList.Add(Constants.NAME_LIST[i]);
