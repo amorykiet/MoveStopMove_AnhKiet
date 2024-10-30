@@ -11,7 +11,7 @@ public class UICharacter : MonoBehaviour
 
     public CameraFollow cam;
 
-    public void Start()
+    public void OnInit()
     {
         Color randomColor = Color.HSVToRGB(
             Random.Range(0f, 1f),

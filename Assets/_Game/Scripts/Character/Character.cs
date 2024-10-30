@@ -119,6 +119,7 @@ public abstract class Character : MonoBehaviour
         speed = config.speed;
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
         model.transform.localScale = Vector3.one * modelScale;
+        charUI.OnInit();
     }
 
 

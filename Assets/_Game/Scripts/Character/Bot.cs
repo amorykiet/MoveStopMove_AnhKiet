@@ -8,6 +8,7 @@ public class Bot : Character
 {
     [SerializeField] private GameObject targetCircle;
     [SerializeField] private float walkRadius = 10;
+    [SerializeField] private Waypoint_Indicator indicator;
 
     private BaseState<Bot> currentState;
 
@@ -41,6 +42,7 @@ public class Bot : Character
         SetupWeapon();
         SetupHat();
         SetupPant();
+        indicator.offScreenSpriteColor = charUI.color;
     }
 
     public override void OnDead()
