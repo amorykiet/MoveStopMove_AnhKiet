@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnInit()
     {
-        ChangeState(GameState.MainMenu);
         UserDataManager.Ins.OnInit();
+        ChangeState(GameState.MainMenu);
     }
 }

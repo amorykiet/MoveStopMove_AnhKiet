@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,13 @@ public class CanvasMainMenu : UICanvas
 {
     [SerializeField] private Button settingButton;
     [SerializeField] private GameObject mainUI;
+    [SerializeField] private TMP_Text moneyText;
+
+    public override void Open()
+    {
+        base.Open();
+        UpdateMoneyText();
+    }
 
     public void Play()
     {
@@ -32,5 +40,11 @@ public class CanvasMainMenu : UICanvas
     public void ShowMainUI()
     {
         mainUI.SetActive(true);
+        UpdateMoneyText();
+    }
+
+    private void UpdateMoneyText()
+    {
+        moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
     }
 }
