@@ -103,6 +103,7 @@ public class LevelManager : Singleton<LevelManager>
         }
 
         cam.OnPlaying();
+        player.ConfigAttackSphereOnPlaying();
     }
 
     public void ReloadLevel()
@@ -192,6 +193,7 @@ public class LevelManager : Singleton<LevelManager>
 
         cam.OnPreviewing();
         player.charUI.gameObject.SetActive(false);
+        player.ConfigAttackSphereOnPreviewing();
 
     }
 

@@ -269,5 +269,12 @@ public class Player : Character
         base.SetupWeapon();
     }
 
-    
+    public void ConfigAttackSphereOnPreviewing()
+    {
+        attackSphere.transform.localScale = Vector3.one * 100;
+    }
+    public void ConfigAttackSphereOnPlaying()
+    {
+        attackSphere.transform.localScale = Vector3.one * radiusAttack;
+    }
 }
