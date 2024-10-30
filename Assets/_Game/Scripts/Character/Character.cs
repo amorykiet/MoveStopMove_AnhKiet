@@ -17,13 +17,13 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected GameObject model;
-    [SerializeField] protected UICharacter charUI;
 
     protected Transform tf;
     protected float radiusAttack;
     protected float speed;
     
 
+    public UICharacter charUI;
     public List<Character> charactersInRange = new();
     public Animator animator;
     public Weapon currentWeapon;
@@ -45,19 +45,23 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    protected virtual void SetupWeapon()
+    public virtual void SetupWeapon()
     {
         currentWeapon.SetOwner(this);
         currentWeapon.SetBulletSpawnPos(bulletSpawnPos);
     }
 
-    protected virtual void SetupHat()
+    public virtual void SetupHat()
     { 
         Hat hatPref = UserDataManager.Ins.GetCurrentHat();
         if (hatPref.type == HatType.None) return;
+        if (currentHat != null)
+        {
+            Destroy(currentHat.gameObject);
+        }
         currentHat = Instantiate(hatPref, headPos);
     }
-    protected virtual void SetupPant()
+    public virtual void SetupPant()
     {
         Pant _pant= UserDataManager.Ins.GetCurrentPant();
         if (_pant.type == PantsType.None) return;

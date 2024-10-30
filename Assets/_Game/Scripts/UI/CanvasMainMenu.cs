@@ -14,15 +14,15 @@ public class CanvasMainMenu : UICanvas
     {
         base.Open();
         UpdateMoneyText();
+        Time.timeScale = 1;
+        LevelManager.Ins.OnInit();
     }
 
     public void Play()
     {
         Close(0);
         Time.timeScale = 1;
-        UIManager.Ins.OpenUI<CanvasGamePlay>().AttachJoyStick().OnInit();
-        LevelManager.Ins.OnInit();
-        //LevelManager.Ins.StartLevel();
+        LevelManager.Ins.StartLevel();
         GameManager.Ins.ChangeState(GameState.GamePlay);
     }
 

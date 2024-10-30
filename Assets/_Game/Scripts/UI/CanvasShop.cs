@@ -40,12 +40,14 @@ public class CanvasShop : UICanvas
         this.mainMenu = mainMenu;
         UpdateMoneyText();
         OpenWeaponShop();
+        LevelManager.Ins.cam.OnShopping();
     }
 
     public void CloseShop()
     {
         Close(0);
         mainMenu.ShowMainUI();
+        LevelManager.Ins.cam.OnPreviewing();
     }
 
     public void OpenWeaponShop()
@@ -80,6 +82,14 @@ public class CanvasShop : UICanvas
         }
         SetupOptionOfShopItemUI(currentShopItemUI);
         SetupOptionOfShopItemUI(equipedShopItemUI);
+        SetupPlayerCustom();
+    }
+
+    public void SetupPlayerCustom()
+    {
+        LevelManager.Ins.player.SetupWeapon();
+        LevelManager.Ins.player.SetupHat();
+        LevelManager.Ins.player.SetupPant();
     }
 
     private void UpdateMoneyText()

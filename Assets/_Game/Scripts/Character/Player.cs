@@ -180,6 +180,7 @@ public class Player : Character
 
     private void Move()
     {
+        if (joyStick == null) return;
         //Movement
         direction = new Vector3(joyStick.Direction.x, 0, joyStick.Direction.y).normalized;
         if (grounded)
@@ -257,9 +258,13 @@ public class Player : Character
         animator.SetBool(Constants.IS_WIN, true);
     }
 
-    override protected void SetupWeapon()
+    override public void SetupWeapon()
     {
         Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
         currentWeapon = Instantiate(weaponPref, handPos);
         base.SetupWeapon();
     }

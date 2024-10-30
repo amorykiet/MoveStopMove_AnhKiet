@@ -27,13 +27,6 @@ public class Bot : Character
         }
     }
 
-    protected override void SetupWeapon()
-    {
-        Weapon weapon = ItemManager.Ins.GetWeaponPrefRandom();
-        currentWeapon = Instantiate(weapon, handPos);
-        base.SetupWeapon();
-    }
-
     override public void OnInit()
     {
         base.OnInit();
@@ -104,18 +97,25 @@ public class Bot : Character
         }
     }
 
-    protected override void SetupHat()
+    public override void SetupHat()
     {
         Hat hatPref = ItemManager.Ins.GetHatPrefRandom();
         if (hatPref.type == HatType.None) return;
         currentHat = Instantiate(hatPref, headPos);
     }
 
-    protected override void SetupPant()
+    public override void SetupPant()
     {
         Pant _pant = ItemManager.Ins.GetPantMatRandom();
         if (_pant.type == PantsType.None) return;
         currentPant = _pant;
         pant.SetMat(currentPant.material);
+    }
+
+    public override void SetupWeapon()
+    {
+        Weapon weapon = ItemManager.Ins.GetWeaponPrefRandom();
+        currentWeapon = Instantiate(weapon, handPos);
+        base.SetupWeapon();
     }
 }
