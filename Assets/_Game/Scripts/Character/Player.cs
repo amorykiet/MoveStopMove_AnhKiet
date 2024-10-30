@@ -12,7 +12,6 @@ public class Player : Character
     public DynamicJoystick joyStick;
 
     [SerializeField] private LayerMask groundMask;
-    
 
     private float eulerDirection;
     private RaycastHit standingHit;
@@ -168,6 +167,11 @@ public class Player : Character
         animator.SetBool(Constants.IS_ATTACK, true);
     }
 
+    public void AttachCam(CameraFollow cam)
+    {
+        charUI.cam = cam;
+    }
+
     public void ResetAttack()
     {
         currentWeapon.Show();
@@ -244,6 +248,7 @@ public class Player : Character
         if(dead) return;
         base.LevelUp();
         score += 1;
+        charUI.ScoreText.text = score.ToString();
     }
 
     public void Wining()

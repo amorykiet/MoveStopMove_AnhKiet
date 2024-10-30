@@ -18,6 +18,7 @@ public class LevelManager : Singleton<LevelManager>
     private Level currentLevel;
     private List<Character> currentCharacterList = new();
     private int currentLevelIndex;
+    private List<string> currentNameList = new();
 
     public int currentCharacterNumber = 0;
 
@@ -102,16 +103,28 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levelList[levelIndex], transform);
         currentLevel.OnInit();
         currentCharacterNumber = currentLevel.charNumberStartWith;
+        for (int i = 0; i < currentCharacterNumber; i++)
+        {
+            currentNameList.Add(Constants.NAME_LIST[i]);
+        }
 
         //Setup Player
         Player player = Instantiate(playerPref, transform);
         player.joyStick = joystick;
+        player.AttachCam(cam);
+
+        string playerName = currentNameList[Random.Range(0, currentNameList.Count)];
+        currentNameList.Remove(playerName);
+        player.AssignName(playerName);
+
         cam.FollowToTarget(player.TF);
         currentCharacterList.Add(player);
         //Setup Bot
         for (int i = 0; i < currentLevel.charNumberStartWith - 1; i++)
         {
             Bot bot = Instantiate(botPref, transform);
+            bot.AttachCam(cam);
+            bot.AssignName(currentNameList[i]);
             currentCharacterList.Add(bot);
         }
         //Setup for character
@@ -152,8 +165,7 @@ public class LevelManager : Singleton<LevelManager>
             Destroy(currentLevel.gameObject);
         }
 
-        
-
+        currentNameList.Clear();
         currentCharacterList.Clear();
     }
 

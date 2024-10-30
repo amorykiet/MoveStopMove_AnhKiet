@@ -8,7 +8,7 @@ public class Bot : Character
 {
     [SerializeField] private GameObject targetCircle;
     [SerializeField] private float walkRadius = 10;
-    
+
     private BaseState<Bot> currentState;
 
     public NavMeshAgent agent;
@@ -63,6 +63,11 @@ public class Bot : Character
         animator.SetBool(Constants.IS_IDLE, true);
 
         Invoke(nameof(Attack), 0.2f);
+    }
+
+    public void AttachCam(CameraFollow cam)
+    {
+        charUI.cam = cam;
     }
 
     public void Attack()

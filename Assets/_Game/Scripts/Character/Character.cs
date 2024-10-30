@@ -16,7 +16,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected GameObject model;
-    
+    [SerializeField] protected UICharacter charUI;
+
     protected Transform tf;
     protected float radiusAttack;
     protected float speed;
@@ -62,6 +63,10 @@ public abstract class Character : MonoBehaviour
         pant.SetMat(currentPant.material);
     }
 
+    public void AssignName(string name)
+    {
+        charUI.NameText.text = name;
+    }
 
     public Character GetLatestTarget()
     {
