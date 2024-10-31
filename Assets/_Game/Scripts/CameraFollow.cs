@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
 
     public void OnPreviewing()
     {
-        offset = new Vector3(0, 10, -10);
+        offset = new Vector3(0, 4, -5);
     }
 
     public void OnShopping()

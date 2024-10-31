@@ -7,9 +7,15 @@ public class CanvasSetting : UICanvas
 {
     private Button settingButton;
 
-    [SerializeField] Button closeButton;
-    [SerializeField] Button closeButtonInGamePlay;
-    [SerializeField] Button mainMenuButton;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private Button closeButtonInGamePlay;
+    [SerializeField] private Button mainMenuButton;
+
+    [SerializeField] private SwitchButton soundButton;
+    [SerializeField] private SwitchButton vibButton;
+
+    private bool isSoundOn = true;
+    private bool isVibOn = true; 
 
     public void Close()
     {
@@ -54,5 +60,30 @@ public class CanvasSetting : UICanvas
     {
         Time.timeScale = 0;
 
+    }
+
+    public void SwitchSound()
+    {
+        isSoundOn = !isSoundOn;
+        if (isSoundOn)
+        {
+            soundButton.SetOn();
+        }
+        else
+        {
+            soundButton.SetOff();
+        }
+    }
+    public void SwitchVib()
+    {
+        isVibOn = !isVibOn;
+        if (isVibOn)
+        {
+            vibButton.SetOn();
+        }
+        else
+        {
+            vibButton.SetOff();
+        }
     }
 }

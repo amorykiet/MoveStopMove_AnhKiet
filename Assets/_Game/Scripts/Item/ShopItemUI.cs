@@ -14,7 +14,8 @@ public class ShopItemUI : MonoBehaviour
 
     [SerializeField] private Image image;
     [SerializeField] private Button selectButton;
-    [SerializeField] private Image lockImage; 
+    [SerializeField] private GameObject selectBorder;
+    [SerializeField] private Image lockImage;
 
     //OnInit
     public void OnInit(ShopItem _shopItem)
@@ -55,13 +56,15 @@ public class ShopItemUI : MonoBehaviour
 
     public void Select()
     {
+        selectBorder.SetActive(true);
         ShopItemUISelected?.Invoke(this);
-        selectButton.interactable = false;
+        selectButton.enabled = false;
     }
 
     public void UnSelected()
     {
-        selectButton.interactable = true;
+        selectBorder.SetActive(false);
+        selectButton.enabled = true;
     }
 
 }

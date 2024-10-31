@@ -13,14 +13,15 @@ public class CanvasShop : UICanvas
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text buffDescriptionText;
 
-    [SerializeField] private GameObject equipUI;
+    [SerializeField] private SelectButton equipUI;
     [SerializeField] private GameObject buyUI;
+    [SerializeField] private SelectButton weaponTab;
+    [SerializeField] private SelectButton HatTab;
+    [SerializeField] private SelectButton PantTab;
 
     [SerializeField] private TMP_Text priceText;
-    [SerializeField] private TMP_Text equipText;
 
     private CanvasMainMenu mainMenu;
-    private ShopTab currentTab = ShopTab.None;
     private ShopItemUI currentShopItemUI = null;
     private ShopItemUI equipedShopItemUI = null;
     private List<ShopItemUI> currentListUI = new List<ShopItemUI>();
@@ -52,17 +53,42 @@ public class CanvasShop : UICanvas
 
     public void OpenWeaponShop()
     {
-        ChangeTab(ShopTab.Weapon);
+        ClearCurrentListShopItemUI();
+        UnSelectAllTabUI();
+        weaponTab.Select();
+        foreach (ShopItem<WeaponType> weaponItem in shopData.WeaponList)
+        {
+            AddItemToShopUIList(weaponItem);
+        }
     }
 
     public void OpenHatShop()
     {
-        ChangeTab(ShopTab.Hat);
+        ClearCurrentListShopItemUI();
+        UnSelectAllTabUI();
+        HatTab.Select();
+        foreach (ShopItem<HatType> hatItem in shopData.HatList)
+        {
+            AddItemToShopUIList(hatItem);
+        }
     }
 
     public void OpenPantShop()
     {
-        ChangeTab(ShopTab.Pants);
+        ClearCurrentListShopItemUI();
+        UnSelectAllTabUI();
+        PantTab.Select();
+        foreach (ShopItem<PantsType> pantItem in shopData.PantsList)
+        {
+            AddItemToShopUIList(pantItem);
+        }
+    }
+
+    public void UnSelectAllTabUI()
+    {
+        weaponTab.UnSelect();
+        HatTab.UnSelect();
+        PantTab.UnSelect();
     }
 
     public void Purchase()
@@ -97,44 +123,6 @@ public class CanvasShop : UICanvas
         moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
     }
 
-    private void ChangeTab(ShopTab tab)
-    {
-        if (tab == currentTab) return;
-        
-        ClearCurrentListShopItemUI();
-        switch(tab)
-        {
-            case ShopTab.Weapon:
-            {
-                foreach (ShopItem<WeaponType> weaponItem in shopData.WeaponList)
-                {
-                    AddItemToShopUIList(weaponItem);
-                }
-                break;
-            }
-
-            case ShopTab.Hat:
-            {
-                foreach (ShopItem<HatType> hatItem in shopData.HatList)
-                {
-                    AddItemToShopUIList(hatItem);
-                }
-                break;
-            }
-
-            case ShopTab.Pants:
-            {
-                foreach (ShopItem<PantsType> pantItem in shopData.PantsList)
-                {
-                    AddItemToShopUIList(pantItem);
-                }
-                break;
-            }
-        }
-
-        currentTab = tab;
-    }
-
 
     private void OnShopItemSelected(ShopItemUI shopItemUI)
     {
@@ -159,12 +147,12 @@ public class CanvasShop : UICanvas
 
             if (shopItemUI.isEquipped)
             {
-                equipText.text = Constants.EQUIPPED_OPTION;
+                equipUI.Select();
                 equipedShopItemUI = shopItemUI;
             }
             else
             {
-                equipText.text = Constants.EQUIP_OPTION;
+                equipUI.UnSelect();
             }
 
         }
@@ -195,12 +183,12 @@ public class CanvasShop : UICanvas
     }
 }
 
-enum ShopTab
-{
-    None = 0,
-    Weapon = 1,
-    Hat = 2,
-    Pants = 3,
-    FullSet = 4,
-    Shields = 5
-}
+//enum ShopTab
+//{
+//    None = 0,
+//    Weapon = 1,
+//    Hat = 2,
+//    Pants = 3,
+//    FullSet = 4,
+//    Shields = 5
+//}
