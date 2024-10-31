@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 6c509e83817338540b17d2fef09f801f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4103874, g: 0.61396044, b: 0.67220604, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
+  player: {fileID: 0}
   levelList:
   - {fileID: 4166057816505753897, guid: 3fec44045ca8244488a185f81f777826, type: 3}
   - {fileID: 6398787090931055557, guid: 89dc656cc355aa94fb6151fede31c0bb, type: 3}
