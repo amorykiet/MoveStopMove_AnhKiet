@@ -49,6 +49,7 @@ public class CanvasShop : UICanvas
         Close(0);
         mainMenu.ShowMainUI();
         LevelManager.Ins.cam.OnPreviewing();
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void OpenWeaponShop()
@@ -60,6 +61,7 @@ public class CanvasShop : UICanvas
         {
             AddItemToShopUIList(weaponItem);
         }
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void OpenHatShop()
@@ -71,6 +73,7 @@ public class CanvasShop : UICanvas
         {
             AddItemToShopUIList(hatItem);
         }
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void OpenPantShop()
@@ -82,6 +85,7 @@ public class CanvasShop : UICanvas
         {
             AddItemToShopUIList(pantItem);
         }
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void UnSelectAllTabUI()
@@ -97,6 +101,7 @@ public class CanvasShop : UICanvas
         currentShopItemUI.Purchase();
         SetupOptionOfShopItemUI(currentShopItemUI);
         UpdateMoneyText();
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void Equip()
@@ -109,6 +114,7 @@ public class CanvasShop : UICanvas
         SetupOptionOfShopItemUI(currentShopItemUI);
         SetupOptionOfShopItemUI(equipedShopItemUI);
         SetupPlayerCustom();
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void SetupPlayerCustom()
@@ -133,6 +139,7 @@ public class CanvasShop : UICanvas
 
         currentShopItemUI = shopItemUI;
 
+        SoundManager.Ins.OnButtonClick();
         SetupOptionOfShopItemUI(shopItemUI);
     }
 

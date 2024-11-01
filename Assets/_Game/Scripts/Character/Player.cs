@@ -210,6 +210,7 @@ public class Player : Character
 
     override public void OnDead()
     {
+        SoundManager.Ins.OnDead();
         stoped = true;
         dead = true;
         rb.velocity = Vector3.zero;
@@ -245,6 +246,7 @@ public class Player : Character
     public override void LevelUp()
     {
         if(dead) return;
+        SoundManager.Ins.OnLevelUp();
         base.LevelUp();
     }
 

@@ -21,6 +21,7 @@ public class CanvasSetting : UICanvas
     {
         Time.timeScale = 1;
         settingButton.gameObject.SetActive(true);
+        SoundManager.Ins.OnButtonClick();
         Close(0);
     }
 
@@ -36,6 +37,7 @@ public class CanvasSetting : UICanvas
         LevelManager.Ins.ClearLevel();
         UIManager.Ins.OpenUI<CanvasMainMenu>();
         GameManager.Ins.ChangeState(GameState.MainMenu);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public CanvasSetting OnInit(UICanvas UIParent)
@@ -65,14 +67,19 @@ public class CanvasSetting : UICanvas
     public void SwitchSound()
     {
         isSoundOn = !isSoundOn;
+        SoundManager.Ins.OnButtonClick();
+
         if (isSoundOn)
         {
             soundButton.SetOn();
+            SoundManager.Ins.UnMute();
         }
         else
         {
             soundButton.SetOff();
+            SoundManager.Ins.Mute();
         }
+
     }
     public void SwitchVib()
     {
@@ -85,5 +92,7 @@ public class CanvasSetting : UICanvas
         {
             vibButton.SetOff();
         }
+
+        SoundManager.Ins.OnButtonClick();
     }
 }

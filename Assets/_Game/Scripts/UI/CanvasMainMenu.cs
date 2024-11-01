@@ -24,18 +24,21 @@ public class CanvasMainMenu : UICanvas
         Time.timeScale = 1;
         LevelManager.Ins.StartLevel();
         GameManager.Ins.ChangeState(GameState.GamePlay);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void Setting()
     {
         settingButton.gameObject.SetActive(false);
         UIManager.Ins.OpenUI<CanvasSetting>().SetButton(settingButton).OnInit(this);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void OpenShop()
     {
         mainUI.SetActive(false);
         UIManager.Ins.OpenUI<CanvasShop>().OnInit(this);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void ShowMainUI()
@@ -48,4 +51,5 @@ public class CanvasMainMenu : UICanvas
     {
         moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
     }
+
 }

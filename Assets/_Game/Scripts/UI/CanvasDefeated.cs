@@ -12,6 +12,7 @@ public class CanvasDefeated : UICanvas
 
         settingButton.gameObject.SetActive(false);
         UIManager.Ins.OpenUI<CanvasSetting>().SetButton(settingButton).OnInit(this);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void Retry()
@@ -19,9 +20,8 @@ public class CanvasDefeated : UICanvas
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasGamePlay>().OnInit();
         LevelManager.Ins.ReloadLevel(); 
-        //LevelManager.Ins.ClearLevel();
-        //LevelManager.Ins.OnInit();
         GameManager.Ins.ChangeState(GameState.GamePlay);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void MainMenu()
@@ -30,5 +30,6 @@ public class CanvasDefeated : UICanvas
         LevelManager.Ins.ClearLevel();
         UIManager.Ins.OpenUI<CanvasMainMenu>();
         GameManager.Ins.ChangeState(GameState.MainMenu);
+        SoundManager.Ins.OnButtonClick();
     }
 }
