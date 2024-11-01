@@ -9,16 +9,18 @@ using UnityEngine.UIElements;
 public class LevelManager : Singleton<LevelManager>
 {
     public DynamicJoystick joystick;
+    public Player player;
 
     [SerializeField] private List<Level> levelList = new();
     [SerializeField] private Player playerPref;
     [SerializeField] private Bot botPref;
-    [SerializeField] private CameraFollow cam;
 
     private Level currentLevel;
     private List<Character> currentCharacterList = new();
     private int currentLevelIndex;
+    private List<string> currentNameList = new();
 
+    public CameraFollow cam;
     public int currentCharacterNumber = 0;
 
     private void OnEnable()
@@ -31,16 +33,18 @@ public class LevelManager : Singleton<LevelManager>
         Character.OnCharacterDead -= Character_OnCharacterDead;
     }
 
-    private void Character_OnCharacterDead(Character obj)
+    private void Character_OnCharacterDead(Character character)
     {
-        if (obj is Player)
+        if (character is Player)
         {
             FailLevel();
             currentCharacterNumber--;
+            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
         }
-        else if (obj is Bot)
+        else if (character is Bot)
         {
             currentCharacterNumber--;
+            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
             if (currentCharacterNumber == 1)
             {
                 WinLevel();
@@ -49,22 +53,24 @@ public class LevelManager : Singleton<LevelManager>
     }
 
 
-    //UNDONE
     private void WinLevel()
     {
         if (currentLevelIndex < levelList.Count - 1)
         {
-            PlayerPrefs.SetInt("currentLevelIndex", currentLevelIndex + 1);
+            UserDataManager.Ins.SaveLevelIndex(currentLevelIndex + 1);
         }
 
-        Player player = currentCharacterList.ElementAt(0) as Player;
+        player = currentCharacterList.ElementAt(0) as Player;
         player.Wining();
+        UserDataManager.Ins.AddMoney(player.score);
         Invoke(nameof(ChangeCanvasToWin), 2);
 
     }
 
     private void FailLevel()
     {
+        Player player = currentCharacterList.ElementAt(0) as Player;
+        UserDataManager.Ins.AddMoney(player.score);
         Invoke(nameof(ChangeCanvasToLose), 2);
     }
 
@@ -78,20 +84,26 @@ public class LevelManager : Singleton<LevelManager>
         UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
     }
 
-    //UNDONE
     public void OnInit()
     {
         currentCharacterNumber = 0;
-        if (PlayerPrefs.HasKey("currentLevelIndex"))
+        currentLevelIndex = UserDataManager.Ins.GetLevelIndex();
+
+        PreviewLevel(currentLevelIndex);
+    }
+
+    public void StartLevel()
+    {
+        UIManager.Ins.OpenUI<CanvasGamePlay>().AttachJoyStick().OnInit().UpdateAliveNumber();
+        player.joyStick = joystick;
+        player.charUI.gameObject.SetActive(true);
+        for (int i = 1; i < currentLevel.charNumberStartWith; i++)
         {
-            currentLevelIndex = PlayerPrefs.GetInt("currentLevelIndex");
-        }
-        else
-        {
-            currentLevelIndex = 0;
+            currentCharacterList[i].gameObject.SetActive(true);
         }
 
-        LoadLevel(currentLevelIndex);
+        cam.OnPlaying();
+        player.ConfigAttackSphereOnPlaying();
     }
 
     public void ReloadLevel()
@@ -106,16 +118,26 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levelList[levelIndex], transform);
         currentLevel.OnInit();
         currentCharacterNumber = currentLevel.charNumberStartWith;
+        UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
+        for (int i = 0; i < currentCharacterNumber - 1; i++)
+        {
+            currentNameList.Add(Constants.NAME_LIST[i]);
+        }
 
         //Setup Player
-        Player player = Instantiate(playerPref, transform);
+        player = Instantiate(playerPref, transform);
         player.joyStick = joystick;
+        player.AttachCam(cam);
+        player.AssignName("You");
+
         cam.FollowToTarget(player.TF);
         currentCharacterList.Add(player);
         //Setup Bot
         for (int i = 0; i < currentLevel.charNumberStartWith - 1; i++)
         {
             Bot bot = Instantiate(botPref, transform);
+            bot.AttachCam(cam);
+            bot.AssignName(currentNameList[i]);
             currentCharacterList.Add(bot);
         }
         //Setup for character
@@ -124,6 +146,55 @@ public class LevelManager : Singleton<LevelManager>
             currentCharacterList[i].TF.position = currentLevel.positionSpawnList[i];
             currentCharacterList[i].OnInit();
         }
+
+        cam.OnPlaying();
+    }
+
+    public void PreviewLevel(int levelIndex)
+    {
+        //Setup Level
+        currentLevel = Instantiate(levelList[levelIndex], transform);
+        currentLevel.OnInit();
+        currentCharacterNumber = currentLevel.charNumberStartWith;
+        for (int i = 0; i < currentCharacterNumber - 1; i++)
+        {
+            currentNameList.Add(Constants.NAME_LIST[i]);
+        }
+
+        //Setup Player
+        player = Instantiate(playerPref, transform);
+        player.AttachCam(cam);
+        player.AssignName("You");
+
+        cam.FollowToTarget(player.TF);
+        currentCharacterList.Add(player);
+
+        //Setup Bot
+        for (int i = 0; i < currentLevel.charNumberStartWith - 1; i++)
+        {
+            Bot bot = Instantiate(botPref, transform);
+            bot.AttachCam(cam);
+            bot.AssignName(currentNameList[i]);
+            currentCharacterList.Add(bot);
+        }
+
+        //Setup for character
+        for (int i = 0; i < currentLevel.charNumberStartWith; i++)
+        {
+            currentCharacterList[i].TF.position = currentLevel.positionSpawnList[i];
+            currentCharacterList[i].OnInit();
+        }
+
+        for (int i = 1; i < currentLevel.charNumberStartWith; i++)
+        {
+            currentCharacterList[i].gameObject.SetActive(false);
+        }
+
+
+        cam.OnPreviewing();
+        player.charUI.gameObject.SetActive(false);
+        player.ConfigAttackSphereOnPreviewing();
+
     }
 
     public void LoadNextLevel()
@@ -156,8 +227,7 @@ public class LevelManager : Singleton<LevelManager>
             Destroy(currentLevel.gameObject);
         }
 
-        
-
+        currentNameList.Clear();
         currentCharacterList.Clear();
     }
 

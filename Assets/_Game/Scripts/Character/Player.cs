@@ -12,7 +12,6 @@ public class Player : Character
     public DynamicJoystick joyStick;
 
     [SerializeField] private LayerMask groundMask;
-    
 
     private float eulerDirection;
     private RaycastHit standingHit;
@@ -24,6 +23,7 @@ public class Player : Character
     public bool isMouseUp;
     public bool stoped;
     public bool attacking;
+
 
 
     private void Update()
@@ -166,6 +166,11 @@ public class Player : Character
         animator.SetBool(Constants.IS_ATTACK, true);
     }
 
+    public void AttachCam(CameraFollow cam)
+    {
+        charUI.cam = cam;
+    }
+
     public void ResetAttack()
     {
         currentWeapon.Show();
@@ -175,6 +180,7 @@ public class Player : Character
 
     private void Move()
     {
+        if (joyStick == null) return;
         //Movement
         direction = new Vector3(joyStick.Direction.x, 0, joyStick.Direction.y).normalized;
         if (grounded)
@@ -204,6 +210,7 @@ public class Player : Character
 
     override public void OnDead()
     {
+        SoundManager.Ins.OnDead();
         stoped = true;
         dead = true;
         rb.velocity = Vector3.zero;
@@ -211,21 +218,16 @@ public class Player : Character
         base.OnDead();
     }
 
-    override protected void SetupWeapon()
-    {
-        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
-        currentWeapon = Instantiate(weaponPref, handPos);
-        base.SetupWeapon();
-    }
-
     override public void OnInit()
     {
         base.OnInit();
         SetupWeapon();
+        SetupHat();
+        SetupPant();
         stoped = true;
         dead = false;
         eulerDirection = 0;
-}
+    }
 
     override public void AddCharacterInRange(Character chr)
     {
@@ -241,6 +243,13 @@ public class Player : Character
         }
     }
 
+    public override void LevelUp()
+    {
+        if(dead) return;
+        SoundManager.Ins.OnLevelUp();
+        base.LevelUp();
+    }
+
     public void Wining()
     {
         dead = true;
@@ -249,5 +258,25 @@ public class Player : Character
         rb.velocity = Vector3.zero;
         rb.detectCollisions = false;
         animator.SetBool(Constants.IS_WIN, true);
+    }
+
+    override public void SetupWeapon()
+    {
+        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+        currentWeapon = Instantiate(weaponPref, handPos);
+        base.SetupWeapon();
+    }
+
+    public void ConfigAttackSphereOnPreviewing()
+    {
+        attackSphere.transform.localScale = Vector3.one * 100;
+    }
+    public void ConfigAttackSphereOnPlaying()
+    {
+        attackSphere.transform.localScale = Vector3.one * radiusAttack;
     }
 }

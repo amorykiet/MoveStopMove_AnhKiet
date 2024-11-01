@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public abstract class Character : MonoBehaviour
 {
@@ -11,20 +12,26 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected CharacterConfig config;
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected Transform handPos;
+    [SerializeField] protected Transform headPos;
+    [SerializeField] protected CharacterPantsMaterial pant;
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected GameObject model;
-    
+
     protected Transform tf;
     protected float radiusAttack;
     protected float speed;
     
 
+    public UICharacter charUI;
     public List<Character> charactersInRange = new();
     public Animator animator;
     public Weapon currentWeapon;
+    public Hat currentHat;
+    public Pant currentPant;
     public float modelScale;
     public float attackSpeed;
+    public int score;
 
     public Transform TF
     {
@@ -38,10 +45,33 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    protected virtual void SetupWeapon()
+    public virtual void SetupWeapon()
     {
         currentWeapon.SetOwner(this);
         currentWeapon.SetBulletSpawnPos(bulletSpawnPos);
+    }
+
+    public virtual void SetupHat()
+    { 
+        Hat hatPref = UserDataManager.Ins.GetCurrentHat();
+        if (hatPref.type == HatType.None) return;
+        if (currentHat != null)
+        {
+            Destroy(currentHat.gameObject);
+        }
+        currentHat = Instantiate(hatPref, headPos);
+    }
+    public virtual void SetupPant()
+    {
+        Pant _pant= UserDataManager.Ins.GetCurrentPant();
+        if (_pant.type == PantsType.None) return;
+        currentPant = _pant;
+        pant.SetMat(currentPant.material);
+    }
+
+    public void AssignName(string name)
+    {
+        charUI.NameText.text = name;
     }
 
     public Character GetLatestTarget()
@@ -70,7 +100,8 @@ public abstract class Character : MonoBehaviour
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
         model.transform.localScale = Vector3.one * modelScale;
 
-
+        score += 1;
+        charUI.ScoreText.text = score.ToString();
     }
 
     public virtual void OnDead()
@@ -96,6 +127,8 @@ public abstract class Character : MonoBehaviour
         attackSphere.transform.localScale = Vector3.one * radiusAttack;
         model.transform.localScale = Vector3.one * modelScale;
 
+        score = 0;
+        charUI.OnInit();
     }
 
 

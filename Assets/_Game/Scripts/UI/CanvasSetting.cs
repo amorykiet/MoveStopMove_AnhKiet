@@ -7,14 +7,21 @@ public class CanvasSetting : UICanvas
 {
     private Button settingButton;
 
-    [SerializeField] Button closeButton;
-    [SerializeField] Button closeButtonInGamePlay;
-    [SerializeField] Button mainMenuButton;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private Button closeButtonInGamePlay;
+    [SerializeField] private Button mainMenuButton;
+
+    [SerializeField] private SwitchButton soundButton;
+    [SerializeField] private SwitchButton vibButton;
+
+    private bool isSoundOn = true;
+    private bool isVibOn = true; 
 
     public void Close()
     {
         Time.timeScale = 1;
         settingButton.gameObject.SetActive(true);
+        SoundManager.Ins.OnButtonClick();
         Close(0);
     }
 
@@ -27,9 +34,10 @@ public class CanvasSetting : UICanvas
     public void MainMenu()
     {
         UIManager.Ins.CloseAll();
-        UIManager.Ins.OpenUI<CanvasMainMenu>();
         LevelManager.Ins.ClearLevel();
+        UIManager.Ins.OpenUI<CanvasMainMenu>();
         GameManager.Ins.ChangeState(GameState.MainMenu);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public CanvasSetting OnInit(UICanvas UIParent)
@@ -54,5 +62,37 @@ public class CanvasSetting : UICanvas
     {
         Time.timeScale = 0;
 
+    }
+
+    public void SwitchSound()
+    {
+        isSoundOn = !isSoundOn;
+        SoundManager.Ins.OnButtonClick();
+
+        if (isSoundOn)
+        {
+            soundButton.SetOn();
+            SoundManager.Ins.UnMute();
+        }
+        else
+        {
+            soundButton.SetOff();
+            SoundManager.Ins.Mute();
+        }
+
+    }
+    public void SwitchVib()
+    {
+        isVibOn = !isVibOn;
+        if (isVibOn)
+        {
+            vibButton.SetOn();
+        }
+        else
+        {
+            vibButton.SetOff();
+        }
+
+        SoundManager.Ins.OnButtonClick();
     }
 }

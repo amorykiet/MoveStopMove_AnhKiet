@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class CanvasGamePlay : UICanvas
 {
     [SerializeField] private DynamicJoystick joystick;
     [SerializeField] private Button settingButton;
+    [SerializeField] private TMP_Text AliveNumberText;
 
     public CanvasGamePlay AttachJoyStick()
     {
@@ -19,6 +21,7 @@ public class CanvasGamePlay : UICanvas
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasVictory>();
         GameManager.Ins.ChangeState(GameState.Finish);
+        SoundManager.Ins.OnVictory();
     }
 
     public void OnPlayerLose()
@@ -26,12 +29,14 @@ public class CanvasGamePlay : UICanvas
         UIManager.Ins.CloseAll();
         UIManager.Ins.OpenUI<CanvasDefeated>();
         GameManager.Ins.ChangeState(GameState.Finish);
+        SoundManager.Ins.OnLose();
     }
 
     public void Setting()
     {
         settingButton.gameObject.SetActive(false);
         UIManager.Ins.OpenUI<CanvasSetting>().SetButton(settingButton).OnInit(this);
+        SoundManager.Ins.OnButtonClick();
     }
 
     new public CanvasGamePlay OnInit()
@@ -41,4 +46,8 @@ public class CanvasGamePlay : UICanvas
         return this;
     }
 
+    public void UpdateAliveNumber()
+    {
+        AliveNumberText.text = LevelManager.Ins.currentCharacterNumber.ToString();
+    }
 }

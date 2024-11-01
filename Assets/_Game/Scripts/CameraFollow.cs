@@ -29,4 +29,21 @@ public class CameraFollow : MonoBehaviour
         this.target = target;
     }
 
+    public void OnPreviewing()
+    {
+        offset = new Vector3(0, 4, -5);
+    }
+
+    public void OnShopping()
+    {
+
+        offset = new Vector3(0, 5, -10);
+    }
+
+    public void OnPlaying()
+    {
+        offset = new Vector3(0, 20, -25);
+
+    }
+
 }

@@ -4,13 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class ShopItem<T> where T : Enum
+public class ShopItem<T>: ShopItem where T : Enum
 {
-    public float price;
     public T type;
+
+}
+
+
+[Serializable]
+public class ShopItem
+{
+    public Sprite sprite;
+    public int price;
     public BuffType buffType;
     public float buffValue;
 
+    //public string buffDescription => buffType.ToString() + " " + buffValue.ToString();
+    public string GetBuffDescription()
+    {
+        return buffType switch
+        {
+            BuffType.RangePercent => $"{buffValue}% Range",
+            BuffType.AttackSpeed => $"{buffValue}% Attack Speed",
+            BuffType.MoveSpeed => $"{buffValue}% Move Speed",
+            BuffType.None => $"None",
+            BuffType.RangePlus => $"+{buffValue} Range",
+            _ => "",
+        };
+    }
 }
 
 public enum HatType

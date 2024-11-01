@@ -11,15 +11,16 @@ public class CanvasVictory : UICanvas
     {
         settingButton.gameObject.SetActive(false);
         UIManager.Ins.OpenUI<CanvasSetting>().SetButton(settingButton).OnInit(this);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void NextLevel()
     {
         UIManager.Ins.CloseAll();
-        LevelManager.Ins.ClearLevel();
         LevelManager.Ins.LoadNextLevel();
         UIManager.Ins.OpenUI<CanvasGamePlay>();
         GameManager.Ins.ChangeState(GameState.GamePlay);
+        SoundManager.Ins.OnButtonClick();
     }    
 
     public void Retry()
@@ -28,13 +29,15 @@ public class CanvasVictory : UICanvas
         LevelManager.Ins.ReloadLevel();
         UIManager.Ins.OpenUI<CanvasGamePlay>().OnInit();
         GameManager.Ins.ChangeState(GameState.GamePlay);
+        SoundManager.Ins.OnButtonClick();
     }
 
     public void MainMenu()
     {
         UIManager.Ins.CloseAll();
-        UIManager.Ins.OpenUI<CanvasMainMenu>();
         LevelManager.Ins.ClearLevel();
+        UIManager.Ins.OpenUI<CanvasMainMenu>();
         GameManager.Ins.ChangeState(GameState.MainMenu);
+        SoundManager.Ins.OnButtonClick();
     }
 }
