@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackAnimation : MonoBehaviour
 {
-    [SerializeField] Player owner;
+    [SerializeField] private Player owner;
 
     public void Attack()
     {

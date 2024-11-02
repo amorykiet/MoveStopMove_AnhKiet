@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class Bullet : GameUnit
 {
-    [SerializeField] BulletConfig config;
+    public Character owner;
+
+    [SerializeField] private BulletConfig config;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject model;
+
     private float speed;
     private float rotSpeed;
     private float timeToExit;
     private float timeCount;
 
 
-    public Character owner;
     private void Update()
     {
 
@@ -47,18 +49,6 @@ public class Bullet : GameUnit
        
     }
 
-    private void CollideCharacter(Collision collision)
-    {
-        Character target = collision.gameObject.GetComponent<Character>();
-        OnDespawn(0);
-        if (owner  != null)
-        {
-            owner.LevelUp();
-        }
-        target.OnDead();
-
-    }
-
     public void SetOwner(Character owner)
     {
         this.owner = owner;
@@ -77,6 +67,17 @@ public class Bullet : GameUnit
 
         timeCount = 0;
     }
-    
+
+    private void CollideCharacter(Collision collision)
+    {
+        Character target = collision.gameObject.GetComponent<Character>();
+        OnDespawn(0);
+        if (owner  != null)
+        {
+            owner.LevelUp();
+        }
+        target.OnDead();
+
+    }
 
 }

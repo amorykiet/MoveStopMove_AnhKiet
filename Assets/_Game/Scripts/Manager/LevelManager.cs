@@ -10,6 +10,8 @@ public class LevelManager : Singleton<LevelManager>
 {
     public DynamicJoystick joystick;
     public Player player;
+    public CameraFollow cam;
+    public int currentCharacterNumber = 0;
 
     [SerializeField] private List<Level> levelList = new();
     [SerializeField] private Player playerPref;
@@ -20,8 +22,6 @@ public class LevelManager : Singleton<LevelManager>
     private int currentLevelIndex;
     private List<string> currentNameList = new();
 
-    public CameraFollow cam;
-    public int currentCharacterNumber = 0;
 
     private void OnEnable()
     {
@@ -31,57 +31,6 @@ public class LevelManager : Singleton<LevelManager>
     private void OnDisable()
     {
         Character.OnCharacterDead -= Character_OnCharacterDead;
-    }
-
-    private void Character_OnCharacterDead(Character character)
-    {
-        if (character is Player)
-        {
-            FailLevel();
-            currentCharacterNumber--;
-            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
-        }
-        else if (character is Bot)
-        {
-            currentCharacterNumber--;
-            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
-            if (currentCharacterNumber == 1)
-            {
-                WinLevel();
-            }
-        }
-    }
-
-
-    private void WinLevel()
-    {
-        if (currentLevelIndex < levelList.Count - 1)
-        {
-            UserDataManager.Ins.SaveLevelIndex(currentLevelIndex + 1);
-        }
-
-        player = currentCharacterList.ElementAt(0) as Player;
-        player.Wining();
-        UserDataManager.Ins.AddMoney(player.score);
-        Invoke(nameof(ChangeCanvasToWin), 2);
-
-    }
-
-    private void FailLevel()
-    {
-        Player player = currentCharacterList.ElementAt(0) as Player;
-        UserDataManager.Ins.AddMoney(player.score);
-        Invoke(nameof(ChangeCanvasToLose), 2);
-    }
-
-    private void ChangeCanvasToWin()
-    {
-        UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerWin();
-    }
-
-    private void ChangeCanvasToLose()
-    {
-        UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
     }
 
     public void OnInit()
@@ -212,11 +161,12 @@ public class LevelManager : Singleton<LevelManager>
     {
         cam.FollowToTarget(cam.transform);
         HBPool.CollectAll();
-        
+
 
         foreach (var character in currentCharacterList)
         {
-            if (character != null){
+            if (character != null)
+            {
 
                 Destroy(character.gameObject);
             }
@@ -231,5 +181,54 @@ public class LevelManager : Singleton<LevelManager>
         currentCharacterList.Clear();
     }
 
+    private void Character_OnCharacterDead(Character character)
+    {
+        if (character is Player)
+        {
+            FailLevel();
+            currentCharacterNumber--;
+            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
+        }
+        else if (character is Bot)
+        {
+            currentCharacterNumber--;
+            UIManager.Ins.GetUI<CanvasGamePlay>().UpdateAliveNumber();
+            if (currentCharacterNumber == 1)
+            {
+                WinLevel();
+            }
+        }
+    }
+
+    private void WinLevel()
+    {
+        if (currentLevelIndex < levelList.Count - 1)
+        {
+            UserDataManager.Ins.SaveLevelIndex(currentLevelIndex + 1);
+        }
+
+        player = currentCharacterList.ElementAt(0) as Player;
+        player.Wining();
+        UserDataManager.Ins.AddMoney(player.score);
+        Invoke(nameof(ChangeCanvasToWin), 2);
+
+    }
+
+    private void FailLevel()
+    {
+        Player player = currentCharacterList.ElementAt(0) as Player;
+        UserDataManager.Ins.AddMoney(player.score);
+        Invoke(nameof(ChangeCanvasToLose), 2);
+    }
+
+    private void ChangeCanvasToWin()
+    {
+        UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerWin();
+    }
+
+    private void ChangeCanvasToLose()
+    {
+        UIManager.Ins.GetUI<CanvasGamePlay>().OnPlayerLose();
+    }
 
 }

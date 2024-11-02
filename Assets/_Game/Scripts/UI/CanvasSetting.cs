@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class CanvasSetting : UICanvas
 {
-    private Button settingButton;
 
     [SerializeField] private Button closeButton;
     [SerializeField] private Button closeButtonInGamePlay;
     [SerializeField] private Button mainMenuButton;
-
     [SerializeField] private SwitchButton soundButton;
     [SerializeField] private SwitchButton vibButton;
 
     private bool isSoundOn = true;
-    private bool isVibOn = true; 
+    private bool isVibOn = true;
+    private Button settingButton;
 
     public void Close()
     {
@@ -58,6 +57,7 @@ public class CanvasSetting : UICanvas
         }
         return this;
     }
+
     public void Pause()
     {
         Time.timeScale = 0;
@@ -81,6 +81,7 @@ public class CanvasSetting : UICanvas
         }
 
     }
+
     public void SwitchVib()
     {
         isVibOn = !isVibOn;

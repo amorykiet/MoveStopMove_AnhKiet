@@ -17,7 +17,6 @@ public class ShopItemUI : MonoBehaviour
     [SerializeField] private GameObject selectBorder;
     [SerializeField] private Image lockImage;
 
-    //OnInit
     public void OnInit(ShopItem _shopItem)
     {
         shopItem = _shopItem;

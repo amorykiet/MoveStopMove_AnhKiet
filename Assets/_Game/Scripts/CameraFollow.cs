@@ -14,7 +14,6 @@ public class CameraFollow : MonoBehaviour
         FollowToTarget(target);
     }
 
-    // Update is called once per frame
     private void LateUpdate()
     {
         if (target == null) return;

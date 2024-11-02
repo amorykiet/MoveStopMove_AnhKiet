@@ -8,8 +8,10 @@ using UnityEngine;
 
 public class Player : Character
 {
-    //In Player
     public DynamicJoystick joyStick;
+    public bool isMouseUp;
+    public bool stoped;
+    public bool attacking;
 
     [SerializeField] private LayerMask groundMask;
 
@@ -19,12 +21,6 @@ public class Player : Character
     private Vector3 direction;
     private Bot currentTarget;
     private bool dead;
-
-    public bool isMouseUp;
-    public bool stoped;
-    public bool attacking;
-
-
 
     private void Update()
     {
@@ -61,6 +57,91 @@ public class Player : Character
             Move();
         }
 
+    }
+
+    public override void OnDead()
+    {
+        SoundManager.Ins.OnDead();
+        stoped = true;
+        dead = true;
+        rb.velocity = Vector3.zero;
+        ChangeTarget(null);
+        base.OnDead();
+    }
+
+    public override void OnInit()
+    {
+        base.OnInit();
+        SetupWeapon();
+        SetupHat();
+        SetupPant();
+        stoped = true;
+        dead = false;
+        eulerDirection = 0;
+    }
+
+    public override void AddCharacterInRange(Character chr)
+    {
+        base.AddCharacterInRange(chr);
+
+        if (isMouseUp && charactersInRange.Count == 1 && !attacking)
+        {
+            stoped = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            ChangeTarget(chr as Bot);
+            Attack(currentTarget);
+        }
+    }
+
+    public override void LevelUp()
+    {
+        if (dead) return;
+        SoundManager.Ins.OnLevelUp();
+        base.LevelUp();
+    }
+
+    public override void SetupWeapon()
+    {
+        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+        currentWeapon = Instantiate(weaponPref, handPos);
+        base.SetupWeapon();
+    }
+
+    public void AttachCam(CameraFollow cam)
+    {
+        charUI.cam = cam;
+    }
+
+    public void ResetAttack()
+    {
+        currentWeapon.Show();
+        animator.SetBool(Constants.IS_ATTACK, false);
+        stoped = false;
+    }
+
+    public void Wining()
+    {
+        dead = true;
+        stoped = true;
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        rb.detectCollisions = false;
+        animator.SetBool(Constants.IS_WIN, true);
+    }
+
+    public void ConfigAttackSphereOnPreviewing()
+    {
+        attackSphere.transform.localScale = Vector3.one * 100;
+    }
+
+    public void ConfigAttackSphereOnPlaying()
+    {
+        attackSphere.transform.localScale = Vector3.one * radiusAttack;
     }
 
     private void UpdateTarget()
@@ -166,18 +247,6 @@ public class Player : Character
         animator.SetBool(Constants.IS_ATTACK, true);
     }
 
-    public void AttachCam(CameraFollow cam)
-    {
-        charUI.cam = cam;
-    }
-
-    public void ResetAttack()
-    {
-        currentWeapon.Show();
-        animator.SetBool(Constants.IS_ATTACK, false);
-        stoped = false;
-    }
-
     private void Move()
     {
         if (joyStick == null) return;
@@ -208,75 +277,4 @@ public class Player : Character
 
     }
 
-    override public void OnDead()
-    {
-        SoundManager.Ins.OnDead();
-        stoped = true;
-        dead = true;
-        rb.velocity = Vector3.zero;
-        ChangeTarget(null);
-        base.OnDead();
-    }
-
-    override public void OnInit()
-    {
-        base.OnInit();
-        SetupWeapon();
-        SetupHat();
-        SetupPant();
-        stoped = true;
-        dead = false;
-        eulerDirection = 0;
-    }
-
-    override public void AddCharacterInRange(Character chr)
-    {
-        base.AddCharacterInRange(chr); 
-
-        if (isMouseUp && charactersInRange.Count == 1 && !attacking)
-        {
-            stoped = true;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            ChangeTarget(chr as Bot);
-            Attack(currentTarget);
-        }
-    }
-
-    public override void LevelUp()
-    {
-        if(dead) return;
-        SoundManager.Ins.OnLevelUp();
-        base.LevelUp();
-    }
-
-    public void Wining()
-    {
-        dead = true;
-        stoped = true;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        rb.detectCollisions = false;
-        animator.SetBool(Constants.IS_WIN, true);
-    }
-
-    override public void SetupWeapon()
-    {
-        Weapon weaponPref = UserDataManager.Ins.GetCurrentWeapon();
-        if (currentWeapon != null)
-        {
-            Destroy(currentWeapon.gameObject);
-        }
-        currentWeapon = Instantiate(weaponPref, handPos);
-        base.SetupWeapon();
-    }
-
-    public void ConfigAttackSphereOnPreviewing()
-    {
-        attackSphere.transform.localScale = Vector3.one * 100;
-    }
-    public void ConfigAttackSphereOnPlaying()
-    {
-        attackSphere.transform.localScale = Vector3.one * radiusAttack;
-    }
 }

@@ -8,8 +8,13 @@ public class UICharacter : MonoBehaviour
     public TMP_Text NameText;
     public TMP_Text ScoreText;
     public Color color;
-
     public CameraFollow cam;
+
+    private void Update()
+    {
+        if (cam == null) return;
+        transform.forward = cam.transform.forward;
+    }
 
     public void OnInit()
     {
@@ -24,9 +29,4 @@ public class UICharacter : MonoBehaviour
         ScoreText.color = color;
     }
 
-    private void Update()
-    {
-        if (cam == null) return;
-        transform.forward = cam.transform.forward;
-    }
 }

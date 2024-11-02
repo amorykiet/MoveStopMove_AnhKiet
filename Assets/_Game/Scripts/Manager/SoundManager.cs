@@ -10,7 +10,6 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioClip loseClip;
     [SerializeField] private AudioClip throwWeaponClip;
     [SerializeField] private AudioClip levelUpClip;
-
     [SerializeField] private AudioSource audioSource;
 
     private bool isMuted = false;

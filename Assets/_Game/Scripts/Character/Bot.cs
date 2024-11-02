@@ -6,18 +6,13 @@ using UnityEngine.AI;
 
 public class Bot : Character
 {
+    public NavMeshAgent agent;
+
     [SerializeField] private GameObject targetCircle;
     [SerializeField] private float walkRadius = 10;
     [SerializeField] private Waypoint_Indicator indicator;
 
     private BaseState<Bot> currentState;
-
-    public NavMeshAgent agent;
-
-    public void SetCircleTarget(bool targeted)
-    {
-        targetCircle.SetActive(targeted);
-    }
 
     private void Update()
     {
@@ -27,7 +22,7 @@ public class Bot : Character
         }
     }
 
-    override public void OnInit()
+    public override void OnInit()
     {
         base.OnInit();
         agent.enabled = true;
@@ -42,6 +37,33 @@ public class Bot : Character
     {
         agent.isStopped = true;
         base.OnDead();
+    }
+
+    public override void SetupHat()
+    {
+        Hat hatPref = ItemManager.Ins.GetHatPrefRandom();
+        if (hatPref.type == HatType.None) return;
+        currentHat = Instantiate(hatPref, headPos);
+    }
+
+    public override void SetupPant()
+    {
+        Pant _pant = ItemManager.Ins.GetPantMatRandom();
+        if (_pant.type == PantsType.None) return;
+        currentPant = _pant;
+        pant.SetMat(currentPant.material);
+    }
+
+    public override void SetupWeapon()
+    {
+        Weapon weapon = ItemManager.Ins.GetWeaponPrefRandom();
+        currentWeapon = Instantiate(weapon, handPos);
+        base.SetupWeapon();
+    }
+
+    public void SetCircleTarget(bool targeted)
+    {
+        targetCircle.SetActive(targeted);
     }
 
     public void ChangeState(BaseState<Bot> newState)
@@ -80,7 +102,6 @@ public class Bot : Character
         ChangeState(new IdleState());
     }
     
-
     public void RandomGo()
     {
         Vector3 randomPoint = Random.insideUnitSphere * walkRadius;
@@ -95,27 +116,5 @@ public class Bot : Character
         {
             ChangeState(new IdleState());
         }
-    }
-
-    public override void SetupHat()
-    {
-        Hat hatPref = ItemManager.Ins.GetHatPrefRandom();
-        if (hatPref.type == HatType.None) return;
-        currentHat = Instantiate(hatPref, headPos);
-    }
-
-    public override void SetupPant()
-    {
-        Pant _pant = ItemManager.Ins.GetPantMatRandom();
-        if (_pant.type == PantsType.None) return;
-        currentPant = _pant;
-        pant.SetMat(currentPant.material);
-    }
-
-    public override void SetupWeapon()
-    {
-        Weapon weapon = ItemManager.Ins.GetWeaponPrefRandom();
-        currentWeapon = Instantiate(weapon, handPos);
-        base.SetupWeapon();
     }
 }

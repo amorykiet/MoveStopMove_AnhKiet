@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SelectButton : MonoBehaviour
 {
-    [SerializeField] GameObject SelectedButton;
-    [SerializeField] GameObject UnSelectedButton;
+    [SerializeField] private GameObject SelectedButton;
+    [SerializeField] private GameObject UnSelectedButton;
 
     public void Select()
     {

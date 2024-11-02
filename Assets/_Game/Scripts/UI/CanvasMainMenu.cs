@@ -10,6 +10,11 @@ public class CanvasMainMenu : UICanvas
     [SerializeField] private GameObject mainUI;
     [SerializeField] private TMP_Text moneyText;
 
+    private void UpdateMoneyText()
+    {
+        moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
+    }
+
     public override void Open()
     {
         base.Open();
@@ -47,9 +52,5 @@ public class CanvasMainMenu : UICanvas
         UpdateMoneyText();
     }
 
-    private void UpdateMoneyText()
-    {
-        moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
-    }
 
 }

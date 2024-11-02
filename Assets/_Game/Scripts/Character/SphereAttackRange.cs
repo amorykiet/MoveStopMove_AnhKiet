@@ -6,6 +6,24 @@ public class SphereAttackRange : MonoBehaviour
 {
     [SerializeField] private Character owner;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        AddCharacter(other);
+
+        if (owner.CompareTag(Constants.PLAYER_TAG) && other.CompareTag(Constants.OBSTACLE_TAG))
+        {
+            HideObstacle(other);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        RemoveCharacter(other);
+        if (owner.CompareTag(Constants.PLAYER_TAG) && other.CompareTag(Constants.OBSTACLE_TAG))
+        {
+            ShowObstacle(other);
+        }
+    }
     private void AddCharacter(Collider other)
     {
         if (other.CompareTag("Bot"))
@@ -38,29 +56,9 @@ public class SphereAttackRange : MonoBehaviour
     {
         other.gameObject.GetComponent<Obstacle>().HideInXRay();
     }
+
     private void ShowObstacle(Collider other)
     {
         other.gameObject.GetComponent<Obstacle>().Show();
     }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        AddCharacter(other);
-
-        if (owner.CompareTag(Constants.PLAYER_TAG) && other.CompareTag(Constants.OBSTACLE_TAG))
-        {
-            HideObstacle(other);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        RemoveCharacter(other);
-        if (owner.CompareTag(Constants.PLAYER_TAG) && other.CompareTag(Constants.OBSTACLE_TAG))
-        {
-            ShowObstacle(other);
-        }
-    }
-
 }

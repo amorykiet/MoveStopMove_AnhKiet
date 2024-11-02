@@ -9,16 +9,13 @@ public class CanvasShop : UICanvas
     [SerializeField] private ShopData shopData;
     [SerializeField] private ShopItemUI shopItemUIPref;
     [SerializeField] private Transform contentShopItemTF;
-
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text buffDescriptionText;
-
     [SerializeField] private SelectButton equipUI;
     [SerializeField] private GameObject buyUI;
     [SerializeField] private SelectButton weaponTab;
     [SerializeField] private SelectButton HatTab;
     [SerializeField] private SelectButton PantTab;
-
     [SerializeField] private TMP_Text priceText;
 
     private CanvasMainMenu mainMenu;
@@ -129,7 +126,6 @@ public class CanvasShop : UICanvas
         moneyText.text = UserDataManager.Ins.GetMoneyAmount().ToString();
     }
 
-
     private void OnShopItemSelected(ShopItemUI shopItemUI)
     {
         if (currentShopItemUI != null)
@@ -189,13 +185,3 @@ public class CanvasShop : UICanvas
         currentListUI.Add(itemUI);
     }
 }
-
-//enum ShopTab
-//{
-//    None = 0,
-//    Weapon = 1,
-//    Hat = 2,
-//    Pants = 3,
-//    FullSet = 4,
-//    Shields = 5
-//}

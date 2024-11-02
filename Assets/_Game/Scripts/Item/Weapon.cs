@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
         HBPool.Spawn<Bullet>(bullet.poolType, bulletSpawnPos.position, bulletSpawnPos.rotation).OnInit(scale, owner, speed);
     }
 
-
     public void Show()
     {
         model.SetActive(true);

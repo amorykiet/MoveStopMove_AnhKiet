@@ -9,20 +9,6 @@ public abstract class Character : MonoBehaviour
 {
     public static event Action<Character> OnCharacterDead;
 
-    [SerializeField] protected CharacterConfig config;
-    [SerializeField] protected Rigidbody rb;
-    [SerializeField] protected Transform handPos;
-    [SerializeField] protected Transform headPos;
-    [SerializeField] protected CharacterPantsMaterial pant;
-    [SerializeField] protected Transform bulletSpawnPos;
-    [SerializeField] protected GameObject attackSphere;
-    [SerializeField] protected GameObject model;
-
-    protected Transform tf;
-    protected float radiusAttack;
-    protected float speed;
-    
-
     public UICharacter charUI;
     public List<Character> charactersInRange = new();
     public Animator animator;
@@ -33,6 +19,16 @@ public abstract class Character : MonoBehaviour
     public float attackSpeed;
     public int score;
 
+    [SerializeField] protected CharacterConfig config;
+    [SerializeField] protected Rigidbody rb;
+    [SerializeField] protected Transform handPos;
+    [SerializeField] protected Transform headPos;
+    [SerializeField] protected CharacterPantsMaterial pant;
+    [SerializeField] protected Transform bulletSpawnPos;
+    [SerializeField] protected GameObject attackSphere;
+    [SerializeField] protected GameObject model;
+
+    protected Transform tf;
     public Transform TF
     {
         get
@@ -44,6 +40,9 @@ public abstract class Character : MonoBehaviour
             return tf;
         }
     }
+    protected float radiusAttack;
+    protected float speed;
+
 
     public virtual void SetupWeapon()
     {
@@ -61,23 +60,13 @@ public abstract class Character : MonoBehaviour
         }
         currentHat = Instantiate(hatPref, headPos);
     }
+
     public virtual void SetupPant()
     {
         Pant _pant= UserDataManager.Ins.GetCurrentPant();
         if (_pant.type == PantsType.None) return;
         currentPant = _pant;
         pant.SetMat(currentPant.material);
-    }
-
-    public void AssignName(string name)
-    {
-        charUI.NameText.text = name;
-    }
-
-    public Character GetLatestTarget()
-    {
-        Character target = charactersInRange.OrderBy(o => Vector3.Distance(TF.position, o.TF.position)).First();
-        return target;
     }
 
     public virtual void AddCharacterInRange(Character chr)
@@ -129,6 +118,17 @@ public abstract class Character : MonoBehaviour
 
         score = 0;
         charUI.OnInit();
+    }
+
+    public void AssignName(string name)
+    {
+        charUI.NameText.text = name;
+    }
+
+    public Character GetLatestTarget()
+    {
+        Character target = charactersInRange.OrderBy(o => Vector3.Distance(TF.position, o.TF.position)).First();
+        return target;
     }
 
 

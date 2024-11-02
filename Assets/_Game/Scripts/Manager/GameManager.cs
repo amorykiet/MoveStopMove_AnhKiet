@@ -8,17 +8,17 @@ public class GameManager : Singleton<GameManager>
 {
     private static GameState gameState;
 
+    private void Start()
+    {
+        OnInit();
+    }
+
     public void ChangeState(GameState state)
     {
         gameState = state;
     }
 
     public bool IsState(GameState state) => gameState == state;
-
-    private void Start()
-    {
-        OnInit();
-    }
 
     public void OnInit()
     {
