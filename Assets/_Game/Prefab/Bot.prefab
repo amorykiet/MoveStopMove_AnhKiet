@@ -1537,14 +1537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6758264268d732342b8916029270f360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 460aa21b02b22a84fb91c63f036d10d5, type: 2}
-  rb: {fileID: 3433132302519296553}
-  handPos: {fileID: 8482559844185188647}
-  headPos: {fileID: 7905291044357178934}
-  pant: {fileID: 8036760925226144990}
-  bulletSpawnPos: {fileID: 8259449131761687644}
-  attackSphere: {fileID: 8569303774173240375}
-  model: {fileID: 6185366794256948311}
   charUI: {fileID: 2454169595903359069}
   charactersInRange: []
   animator: {fileID: 938873299749618494}
@@ -1553,10 +1545,19 @@ MonoBehaviour:
   currentPant: {fileID: 0}
   modelScale: 0
   attackSpeed: 0
+  score: 0
+  config: {fileID: 11400000, guid: 460aa21b02b22a84fb91c63f036d10d5, type: 2}
+  rb: {fileID: 3433132302519296553}
+  handPos: {fileID: 8482559844185188647}
+  headPos: {fileID: 7905291044357178934}
+  pant: {fileID: 8036760925226144990}
+  bulletSpawnPos: {fileID: 8259449131761687644}
+  attackSphere: {fileID: 8569303774173240375}
+  model: {fileID: 6185366794256948311}
+  agent: {fileID: 7744581789064935472}
   targetCircle: {fileID: 1656894977347503946}
   walkRadius: 10
   indicator: {fileID: 5654942512358984751}
-  agent: {fileID: 7744581789064935472}
 --- !u!54 &3433132302519296553
 Rigidbody:
   m_ObjectHideFlags: 0
