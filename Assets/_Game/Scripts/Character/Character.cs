@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected Transform handPos;
     [SerializeField] protected Transform headPos;
-    [SerializeField] protected CharacterPantsMaterial pant;
+    [SerializeField] protected CharacterPantsMaterial pantMat;
     [SerializeField] protected Transform bulletSpawnPos;
     [SerializeField] protected GameObject attackSphere;
     [SerializeField] protected GameObject model;
@@ -53,6 +53,33 @@ public abstract class Character : MonoBehaviour
     public virtual void SetupHat()
     { 
         Hat hatPref = UserDataManager.Ins.GetCurrentHat();
+        if (currentHat != null)
+        {
+            Destroy(currentHat.gameObject);
+        }
+        if (hatPref.type == HatType.None) return;
+        currentHat = Instantiate(hatPref, headPos);
+    }
+
+    public virtual void SetupPant()
+    {
+        Pant _pant= UserDataManager.Ins.GetCurrentPant();
+        if (_pant.type == PantsType.None)
+        {
+            currentPant = ItemManager.Ins.GetPantMatByType(PantsType.None);
+        }
+        currentPant = _pant;
+        pantMat.SetMat(currentPant.material);
+    }
+
+    public virtual void SetupWeapon(Weapon weaponPref)
+    {
+        currentWeapon.SetOwner(this);
+        currentWeapon.SetBulletSpawnPos(bulletSpawnPos);
+    }
+
+    public virtual void SetupHat(Hat hatPref)
+    {
         if (hatPref.type == HatType.None) return;
         if (currentHat != null)
         {
@@ -61,12 +88,26 @@ public abstract class Character : MonoBehaviour
         currentHat = Instantiate(hatPref, headPos);
     }
 
-    public virtual void SetupPant()
+    public virtual void SetupPant(Pant _pant)
     {
-        Pant _pant= UserDataManager.Ins.GetCurrentPant();
         if (_pant.type == PantsType.None) return;
+
         currentPant = _pant;
-        pant.SetMat(currentPant.material);
+        pantMat.SetMat(currentPant.material);
+    }
+
+    public virtual void ClearHat()
+    {
+        if (currentHat != null)
+        {
+            Destroy(currentHat.gameObject);
+        }
+    }
+
+    public virtual void ClearPant()
+    {
+        Pant none = ItemManager.Ins.GetPantMatByType(PantsType.None);
+        pantMat.SetMat(none.material);
     }
 
     public virtual void AddCharacterInRange(Character chr)

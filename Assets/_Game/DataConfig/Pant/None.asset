@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: None
   m_EditorClassIdentifier: 
   type: 0
-  material: {fileID: 0}
+  material: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}

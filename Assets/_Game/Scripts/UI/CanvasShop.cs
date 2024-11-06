@@ -16,12 +16,14 @@ public class CanvasShop : UICanvas
     [SerializeField] private SelectButton weaponTab;
     [SerializeField] private SelectButton HatTab;
     [SerializeField] private SelectButton PantTab;
+    [SerializeField] private SelectButton FullSetTab;
     [SerializeField] private TMP_Text priceText;
 
     private CanvasMainMenu mainMenu;
     private ShopItemUI currentShopItemUI = null;
     private ShopItemUI equipedShopItemUI = null;
     private List<ShopItemUI> currentListUI = new List<ShopItemUI>();
+    private Tab currentTab;
 
     private void OnEnable()
     {
@@ -43,6 +45,14 @@ public class CanvasShop : UICanvas
 
     public void CloseShop()
     {
+        if (UserDataManager.Ins.IsFullSetEquipped())
+        {
+            SetupPlayerFullSet();
+        }
+        else
+        {
+            SetupPlayerCustom();
+        }
         Close(0);
         mainMenu.ShowMainUI();
         LevelManager.Ins.cam.OnPreviewing();
@@ -51,7 +61,9 @@ public class CanvasShop : UICanvas
 
     public void OpenWeaponShop()
     {
+        currentTab = Tab.Weapon;
         ClearCurrentListShopItemUI();
+        SetupPlayerCustom();
         UnSelectAllTabUI();
         weaponTab.Select();
         foreach (ShopItem<WeaponType> weaponItem in shopData.WeaponList)
@@ -63,7 +75,9 @@ public class CanvasShop : UICanvas
 
     public void OpenHatShop()
     {
+        currentTab = Tab.Hat;
         ClearCurrentListShopItemUI();
+        SetupPlayerCustom();
         UnSelectAllTabUI();
         HatTab.Select();
         foreach (ShopItem<HatType> hatItem in shopData.HatList)
@@ -75,7 +89,9 @@ public class CanvasShop : UICanvas
 
     public void OpenPantShop()
     {
+        currentTab = Tab.Pant;
         ClearCurrentListShopItemUI();
+        SetupPlayerCustom();
         UnSelectAllTabUI();
         PantTab.Select();
         foreach (ShopItem<PantsType> pantItem in shopData.PantsList)
@@ -84,12 +100,29 @@ public class CanvasShop : UICanvas
         }
         SoundManager.Ins.OnButtonClick();
     }
+    
+    //UNDONE
+    public void OpenFullSetShop()
+    {
+        currentTab = Tab.FullSet;
+        ClearCurrentListShopItemUI();
+        SetupPlayerFullSet();
+        UnSelectAllTabUI();
+        FullSetTab.Select();
+        foreach (ShopItem<FullSetType> fullSetItem in shopData.FullSetList)
+        {
+            AddItemToShopUIList(fullSetItem);
+        }
+        SoundManager.Ins.OnButtonClick();
+
+    }
 
     public void UnSelectAllTabUI()
     {
         weaponTab.UnSelect();
         HatTab.UnSelect();
         PantTab.UnSelect();
+        FullSetTab.UnSelect();
     }
 
     public void Purchase()
@@ -108,17 +141,36 @@ public class CanvasShop : UICanvas
             currentShopItemUI.Equip();
             equipedShopItemUI.UnEquip();
         }
+
         SetupOptionOfShopItemUI(currentShopItemUI);
         SetupOptionOfShopItemUI(equipedShopItemUI);
-        SetupPlayerCustom();
+
+        if (UserDataManager.Ins.IsFullSetEquipped())
+        {
+            SetupPlayerFullSet();
+        }
+        else
+        {
+            SetupPlayerCustom();
+        }
+
         SoundManager.Ins.OnButtonClick();
     }
 
     public void SetupPlayerCustom()
     {
         LevelManager.Ins.player.SetupWeapon();
+        LevelManager.Ins.player.ClearFullSet();
         LevelManager.Ins.player.SetupHat();
         LevelManager.Ins.player.SetupPant();
+    }
+
+    public void SetupPlayerFullSet()
+    {
+        LevelManager.Ins.player.SetupWeapon();
+        LevelManager.Ins.player.ClearPant();
+        LevelManager.Ins.player.ClearHat();
+        LevelManager.Ins.player.SetupFullSet();
     }
 
     private void UpdateMoneyText()
@@ -171,8 +223,10 @@ public class CanvasShop : UICanvas
 
     private void ClearCurrentListShopItemUI()
     {
+        
         foreach (ShopItemUI itemUI in currentListUI)
         {
+            itemUI.UnSelected();
             Destroy(itemUI.gameObject);
         }
         currentListUI.Clear();
@@ -184,4 +238,12 @@ public class CanvasShop : UICanvas
         itemUI.OnInit(_itemUI);
         currentListUI.Add(itemUI);
     }
+}
+
+public enum Tab
+{
+    Weapon = 0,
+    Hat = 1,
+    Pant = 2,
+    FullSet = 3
 }

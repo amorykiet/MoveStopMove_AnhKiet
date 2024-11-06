@@ -14,6 +14,10 @@ public class Player : Character
     public bool attacking;
 
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private CharacterGroupMaterial groupMat;
+    [SerializeField] private Transform backPos;
+    [SerializeField] private Transform tailPos;
+    [SerializeField] private Transform otherHandPos;
 
     private float eulerDirection;
     private RaycastHit standingHit;
@@ -21,6 +25,8 @@ public class Player : Character
     private Vector3 direction;
     private Bot currentTarget;
     private bool dead;
+
+    private List<GameObject> fullSetObjList = new();
 
     private void Update()
     {
@@ -110,6 +116,74 @@ public class Player : Character
         }
         currentWeapon = Instantiate(weaponPref, handPos);
         base.SetupWeapon();
+    }
+
+    public override void SetupWeapon(Weapon weaponPref)
+    {
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+        currentWeapon = Instantiate(weaponPref, handPos);
+        base.SetupWeapon();
+    }
+
+    public void SetupFullSet(FullSet fullSet)
+    {
+        ClearFullSet();
+        if (fullSet.groupMaterial != null)
+        {
+            groupMat.SetMat(fullSet.groupMaterial);
+        }
+
+        if (fullSet.pantMaterial != null)
+        {
+            pantMat.SetMat(fullSet.pantMaterial);
+        }
+
+        GameObject temp = null;
+
+        if (fullSet.hatPref != null)
+        {
+            temp = Instantiate(fullSet.hatPref, headPos);
+            fullSetObjList.Add(temp);
+        }
+
+        if (fullSet.weaponPref != null)
+        {
+            temp = Instantiate(fullSet.weaponPref, otherHandPos);
+            fullSetObjList.Add(temp);
+        }
+
+        if (fullSet.wingPref != null)
+        {
+            temp = Instantiate(fullSet.wingPref, backPos);
+            fullSetObjList.Add(temp);
+        }
+
+        if (fullSet.tailPref != null)
+        {
+            temp = Instantiate(fullSet.tailPref, tailPos);
+            fullSetObjList.Add(temp);
+        }
+    }
+
+    public void SetupFullSet()
+    {
+        SetupFullSet(UserDataManager.Ins.GetCurrentFullSet());
+    }
+
+    public void ClearFullSet()
+    {
+        FullSet none = ItemManager.Ins.GetFullSetByType(FullSetType.None);
+        groupMat.SetMat(none.groupMaterial);
+        pantMat.SetMat(none.pantMaterial);
+
+        foreach (GameObject obj in fullSetObjList)
+        {
+            Destroy(obj.gameObject);
+        }
+        fullSetObjList.Clear();
     }
 
     public void AttachCam(CameraFollow cam)

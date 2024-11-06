@@ -10,6 +10,7 @@ public class ItemManager : Singleton<ItemManager>
     [SerializeField] private List<Weapon> weaponPrefList;
     [SerializeField] private List<Hat> hatPrefList;
     [SerializeField] private List<Pant> pantMatList;
+    [SerializeField] private List<FullSet> fullSetList = new();
 
     //Weapon
     public Weapon GetWeaponPrefByType (WeaponType type)
@@ -49,5 +50,11 @@ public class ItemManager : Singleton<ItemManager>
         return GetPantMatByType(randomTypePant.type);
     }
 
+    //FullSet
+
+    public FullSet GetFullSetByType(FullSetType type)
+    {
+        return fullSetList.Where(o => o.type == type).First();
+    }
 
 }

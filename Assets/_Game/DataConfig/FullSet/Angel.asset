@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9f36baa361ac342b28a550f580ccc1, type: 3}
+  m_Name: Angel
+  m_EditorClassIdentifier: 
+  type: 2
+  groupMaterial: {fileID: 2100000, guid: fe3c3ac387cbccf4db2d5ae9e9a90a79, type: 2}
+  pantMaterial: {fileID: 2100000, guid: 516bcc28d8a0c7d4199a3953e35f4f30, type: 2}
+  hatPref: {fileID: 5562366356018463011, guid: 7759a07b7a13b5a468d403b1bf464807, type: 3}
+  weaponPref: {fileID: 7375016003059206684, guid: 2675b2d9f2e53114d8c87d4a87f6c7b1, type: 3}
+  wingPref: {fileID: 7690693819902051557, guid: 9728af5efb8666740988447d7132a4ca, type: 3}
+  tailPref: {fileID: 0}

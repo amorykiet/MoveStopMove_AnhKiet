@@ -55,6 +55,28 @@ public class ShopItemUI : MonoBehaviour
 
     public void Select()
     {
+        //Preview
+        if (shopItem is ShopItem<WeaponType> weapon)
+        {
+            Weapon weaponPref = ItemManager.Ins.GetWeaponPrefByType(weapon.type);
+            LevelManager.Ins.player.SetupWeapon(weaponPref);
+        }
+        else if (shopItem is ShopItem<HatType> hat)
+        {
+            Hat hatPref = ItemManager.Ins.GetHatPrefByType(hat.type);
+            LevelManager.Ins.player.SetupHat(hatPref);
+        }
+        else if (shopItem is ShopItem<PantsType> pant)
+        {
+            Pant pantPref = ItemManager.Ins.GetPantMatByType(pant.type);
+            LevelManager.Ins.player.SetupPant(pantPref);
+        }
+        else if (shopItem is ShopItem<FullSetType> fullSet)
+        {
+            FullSet fullSetPref = ItemManager.Ins.GetFullSetByType(fullSet.type);
+            LevelManager.Ins.player.SetupFullSet(fullSetPref);
+        }
+
         selectBorder.SetActive(true);
         ShopItemUISelected?.Invoke(this);
         selectButton.enabled = false;

@@ -57,6 +57,10 @@ public class UserDataManager : Singleton<UserDataManager>
         {
             return IsPantPurchased(pant.type);
         }
+        else if (item is ShopItem<FullSetType> fullSet)
+        {
+            return IsFullSetPurchased(fullSet.type);
+        }
 
 
         return false;
@@ -76,6 +80,10 @@ public class UserDataManager : Singleton<UserDataManager>
         {
             return IsPantEquipped(pant.type);
         }
+        else if (item is ShopItem<FullSetType> fullSet)
+        {
+            return IsFullSetEquipped(fullSet.type);
+        }
 
         return false;
 
@@ -93,15 +101,23 @@ public class UserDataManager : Singleton<UserDataManager>
     {
         if (item is ShopItem<WeaponType> weapon)
         {
+            userData.isFullSetEquipped = false;
             userData.weaponEquipped = weapon.type;
         }
         else if (item is ShopItem<HatType> hat)
         {
+            userData.isFullSetEquipped = false;
             userData.hatEquipped = hat.type;
         }
         else if (item is ShopItem<PantsType> pant)
         {
+            userData.isFullSetEquipped = false;
             userData.pantEquipped = pant.type;
+        }
+        else if (item is ShopItem<FullSetType> fullSet)
+        {
+            userData.isFullSetEquipped = true;
+            userData.fullSetEquipped = fullSet.type;
         }
 
         SaveData();
@@ -121,6 +137,10 @@ public class UserDataManager : Singleton<UserDataManager>
         else if (item is ShopItem<PantsType> pant)
         {
             userData.pantPurchasedList.Add(pant.type);
+        }
+        else if (item is ShopItem<FullSetType> fullSet)
+        {
+            userData.fullSetPurchasedList.Add(fullSet.type);
         }
 
         SaveData();
@@ -189,6 +209,28 @@ public class UserDataManager : Singleton<UserDataManager>
     {
         return userData.pantEquipped == type;
     }
+
+    //FullSet
+    public bool IsFullSetEquipped()
+    {
+        return userData.isFullSetEquipped;
+    }
+
+    public FullSet GetCurrentFullSet()
+    {
+        return ItemManager.Ins.GetFullSetByType(userData.fullSetEquipped);
+    }
+
+    private bool IsFullSetPurchased(FullSetType type)
+    {
+        return userData.fullSetPurchasedList.Contains(type);
+    }
+
+    private bool IsFullSetEquipped(FullSetType type)
+    {
+        return userData.fullSetEquipped == type;
+    }
+
 }
 
 
@@ -199,12 +241,15 @@ public class UserData
 {
     public int level;
     public int money;
+    public bool isFullSetEquipped;
     public List<WeaponType> weaponPurchasedList;
     public WeaponType weaponEquipped;
     public List<HatType> hatPurchasedList;
     public HatType hatEquipped;
     public List<PantsType> pantPurchasedList;
     public PantsType pantEquipped;
+    public List<FullSetType> fullSetPurchasedList;
+    public FullSetType fullSetEquipped;
 
     //Other item...
 
@@ -214,6 +259,7 @@ public class UserData
         //Set up level
         level = 0;
         money = 100;
+        isFullSetEquipped = false;
 
         //Setup weapon
         weaponPurchasedList = new List<WeaponType>();
@@ -229,6 +275,11 @@ public class UserData
         pantPurchasedList = new List<PantsType>();
         pantEquipped = PantsType.None;
         pantPurchasedList.Add(pantEquipped);
+
+        //Setup fullSet
+        fullSetPurchasedList = new List<FullSetType>();
+        fullSetEquipped = FullSetType.None;
+        fullSetPurchasedList.Add(fullSetEquipped);
 
 
     }

@@ -1550,7 +1550,7 @@ MonoBehaviour:
   rb: {fileID: 3433132302519296553}
   handPos: {fileID: 8482559844185188647}
   headPos: {fileID: 7905291044357178934}
-  pant: {fileID: 8036760925226144990}
+  pantMat: {fileID: 8036760925226144990}
   bulletSpawnPos: {fileID: 8259449131761687644}
   attackSphere: {fileID: 8569303774173240375}
   model: {fileID: 6185366794256948311}

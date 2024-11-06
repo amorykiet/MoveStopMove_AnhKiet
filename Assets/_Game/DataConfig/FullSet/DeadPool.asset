@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9f36baa361ac342b28a550f580ccc1, type: 3}
+  m_Name: DeadPool
+  m_EditorClassIdentifier: 
+  type: 4
+  groupMaterial: {fileID: 2100000, guid: 4906d0147b0496d418b29080bb674406, type: 2}
+  pantMaterial: {fileID: 2100000, guid: 2f373ae8b6b53b64ebf13baf4f77fdb9, type: 2}
+  hatPref: {fileID: 0}
+  weaponPref: {fileID: 2860031786227732990, guid: 4f623deef5e652d4e99985bb691fcd30, type: 3}
+  wingPref: {fileID: 0}
+  tailPref: {fileID: 0}

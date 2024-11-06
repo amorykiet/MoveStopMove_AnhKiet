@@ -51,7 +51,7 @@ public class Bot : Character
         Pant _pant = ItemManager.Ins.GetPantMatRandom();
         if (_pant.type == PantsType.None) return;
         currentPant = _pant;
-        pant.SetMat(currentPant.material);
+        pantMat.SetMat(currentPant.material);
     }
 
     public override void SetupWeapon()

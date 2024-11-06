@@ -10,7 +10,7 @@ public class ShopData : ScriptableObject
     public List<ShopItem<HatType>> HatList;
     public List<ShopItem<PantsType>> PantsList;
     public List<ShopItem<ShieldType>> ShieldList;
-    public List<ShopItem<FullSetType>> FullSetTypeList;
+    public List<ShopItem<FullSetType>> FullSetList;
     public List<ShopItem<WeaponType>> WeaponList;
 
     public ShopItem<T> GetItem<T> (List<ShopItem<T>> list, T type) where T: Enum
