@@ -16,6 +16,7 @@ public class AttackAnimation : MonoBehaviour
         owner.stoped = true;
         owner.attacking = true;
         owner.currentWeapon.Fire(owner.modelScale, owner.attackSpeed);
+        SoundManager.Ins.OnThrowWeapon();
         owner.currentWeapon.Hide();
     }
 
