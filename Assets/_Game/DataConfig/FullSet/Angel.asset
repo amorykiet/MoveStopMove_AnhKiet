@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Angel
   m_EditorClassIdentifier: 
   type: 2
-  groupMaterial: {fileID: 2100000, guid: fe3c3ac387cbccf4db2d5ae9e9a90a79, type: 2}
+  groupMaterial: {fileID: 2100000, guid: 9b02c71b1259ca74eb524af73f9f7d5d, type: 2}
   pantMaterial: {fileID: 2100000, guid: 516bcc28d8a0c7d4199a3953e35f4f30, type: 2}
   hatPref: {fileID: 5562366356018463011, guid: 7759a07b7a13b5a468d403b1bf464807, type: 3}
   weaponPref: {fileID: 7375016003059206684, guid: 2675b2d9f2e53114d8c87d4a87f6c7b1, type: 3}
