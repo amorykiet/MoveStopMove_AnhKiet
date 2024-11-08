@@ -27,7 +27,7 @@ public class ShopItemUI : MonoBehaviour
             
             if (UserDataManager.Ins.IsItemEquipped(shopItem))
             {
-                isEquipped = true;
+                Equip();
                 Select();
             }
 
